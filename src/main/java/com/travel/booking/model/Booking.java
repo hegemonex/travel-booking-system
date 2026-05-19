@@ -7,6 +7,7 @@ public class Booking {
 
     private Long id;
     private Trip trip;
+    private User user;
     private Payment payment;
     private double totalPrice;
     private boolean confirmed;
@@ -33,6 +34,13 @@ public class Booking {
         this.payment = payment;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public double getTotalPrice() {
         return totalPrice;
@@ -57,6 +65,8 @@ public class Booking {
     public void setBookingDate(LocalDate bookingDate) {
         this.bookingDate = bookingDate;
     }
+
+
 
     public LocalDateTime getCreatedAt() {
         return createdAt;

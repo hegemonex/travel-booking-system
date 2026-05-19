@@ -10,10 +10,12 @@ public class User {
     private String firstName;
     private String lastName;
     private String email;
+    private String phoneNumber;
     private LocalDate birthDate;
     private LocalDateTime createdAt;
     private List<Booking> bookings;
     private List<Review> reviews;
+    private TravelBookingSystem travelBookingSystem;
 
     public Long getId() {
         return id;
@@ -53,6 +55,22 @@ public class User {
 
     public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public TravelBookingSystem getTravelBookingSystem() {
+        return travelBookingSystem;
+    }
+
+    public void setTravelBookingSystem(TravelBookingSystem travelBookingSystem) {
+        this.travelBookingSystem = travelBookingSystem;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public LocalDateTime getCreatedAt() {

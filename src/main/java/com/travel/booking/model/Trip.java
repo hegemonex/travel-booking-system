@@ -11,6 +11,8 @@ public class Trip {
     private Flight flight;
     private Transport transport;
     private Package Package;
+    private TravelPackage travelPackage;
+    private TravelBookingSystem travelBookingSystem;
     private String title;
     private String description;
     private double price;
@@ -85,6 +87,14 @@ public class Trip {
         this.price = price;
     }
 
+    public TravelBookingSystem getTravelBookingSystem() {
+        return travelBookingSystem;
+    }
+
+    public void setTravelBookingSystem(TravelBookingSystem travelBookingSystem) {
+        this.travelBookingSystem = travelBookingSystem;
+    }
+
     public boolean isAvailabe() {
         return availabe;
     }
@@ -107,6 +117,14 @@ public class Trip {
 
     public void setReturnDate(LocalDate returnDate) {
         this.returnDate = returnDate;
+    }
+
+    public TravelPackage getTravelPackage() {
+        return travelPackage;
+    }
+
+    public void setTravelPackage(TravelPackage travelPackage) {
+        this.travelPackage = travelPackage;
     }
 
     public LocalDateTime getCreatedAt() {
