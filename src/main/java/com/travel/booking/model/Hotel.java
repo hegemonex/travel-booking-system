@@ -8,6 +8,7 @@ public class Hotel {
     private String name;
     private String city;
     private String address;
+    private Trip trip;
     private int starRating;
     private boolean breakfastIncluded;
     private double pricePerNight;
@@ -51,6 +52,14 @@ public class Hotel {
 
     public void setStarRating(int starRating) {
         this.starRating = starRating;
+    }
+
+    public Trip getTrip() {
+        return trip;
+    }
+
+    public void setTrip(Trip trip) {
+        this.trip = trip;
     }
 
     public boolean isBreakfastIncluded() {

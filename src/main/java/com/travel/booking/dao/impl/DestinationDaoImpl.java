@@ -36,10 +36,7 @@ public class DestinationDaoImpl implements DestinationDao {
 
     @Override
     public void create(Destination destination) {
-        try (
-                Connection connection = ConnectionPool.getConnection();
-                PreparedStatement statement = connection.prepareStatement(INSERT)
-        ) {
+        try (Connection connection = ConnectionPool.getConnection(); PreparedStatement statement = connection.prepareStatement(INSERT)) {
             statement.setLong(1, destination.getId());
             statement.setString(2, destination.getCountry());
             statement.setString(3, destination.getCity());
@@ -56,10 +53,7 @@ public class DestinationDaoImpl implements DestinationDao {
 
     @Override
     public Destination findBy(Long id) {
-        try (
-                Connection connection = ConnectionPool.getConnection();
-                PreparedStatement statement = connection.prepareStatement(SELECT_BY_ID)
-        ) {
+        try (Connection connection = ConnectionPool.getConnection(); PreparedStatement statement = connection.prepareStatement(SELECT_BY_ID)) {
             statement.setLong(1, id);
 
             try (ResultSet rs = statement.executeQuery()) {
@@ -78,11 +72,7 @@ public class DestinationDaoImpl implements DestinationDao {
     public List<Destination> findAll() {
         List<Destination> destinations = new ArrayList<>();
 
-        try (
-                Connection connection = ConnectionPool.getConnection();
-                PreparedStatement statement = connection.prepareStatement(SELECT_ALL);
-                ResultSet rs = statement.executeQuery()
-        ) {
+        try (Connection connection = ConnectionPool.getConnection(); PreparedStatement statement = connection.prepareStatement(SELECT_ALL); ResultSet rs = statement.executeQuery()) {
             while (rs.next()) {
                 destinations.add(mapRow(rs));
             }
@@ -95,10 +85,7 @@ public class DestinationDaoImpl implements DestinationDao {
 
     @Override
     public void update(Destination destination) {
-        try (
-                Connection connection = ConnectionPool.getConnection();
-                PreparedStatement statement = connection.prepareStatement(UPDATE)
-        ) {
+        try (Connection connection = ConnectionPool.getConnection(); PreparedStatement statement = connection.prepareStatement(UPDATE)) {
             statement.setString(1, destination.getCountry());
             statement.setString(2, destination.getCity());
             statement.setString(3, destination.getDescription());
@@ -114,10 +101,7 @@ public class DestinationDaoImpl implements DestinationDao {
 
     @Override
     public void delete(Long id) {
-        try (
-                Connection connection = ConnectionPool.getConnection();
-                PreparedStatement statement = connection.prepareStatement(DELETE)
-        ) {
+        try (Connection connection = ConnectionPool.getConnection(); PreparedStatement statement = connection.prepareStatement(DELETE)) {
             statement.setLong(1, id);
             statement.executeUpdate();
 

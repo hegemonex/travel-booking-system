@@ -93,14 +93,13 @@ public class Main {
         System.out.println("Destination saved");
 
         Trip trip = new Trip();
-        trip.setId(1L);
         trip.setTitle("London Adventure");
         trip.setDescription("5 days in London");
         trip.setPrice(999.99);
         trip.setAvailabe(true);
         trip.setDepartureDate(LocalDate.of(2025, 6, 1));
         trip.setReturnDate(LocalDate.of(2025, 6, 6));
-        trip.setCreatedAt(LocalDateTime.now());
+        trip.setCreatedAt(LocalDate.now());
         trip.setFlight(flight);
         trip.setTransport(transport);
         trip.setTravelPackage(travelPackage);
@@ -139,6 +138,35 @@ public class Main {
         booking.setBookingDate(LocalDate.now());
         booking.setCreatedAt(LocalDateTime.now());
         // bookingService.save(booking); // uncomment once PaymentService is ready
+
+        Hotel hotel = new Hotel();
+        hotel.setName("Hilton");
+        hotel.setCity("Tbilisi");
+        hotel.setAddress("Rustaveli Ave");
+        hotel.setStarRating(5);
+        hotel.setBreakfastIncluded(true);
+        hotel.setPricePerNight(200);
+        hotel.setCreatedAt(LocalDateTime.now());
+
+        trip.setHotel(hotel);
+        hotel.setTrip(trip);
+
+        tripService.saveTripWithHotel(trip);
+
+        List<Booking> fullBookings = bookingService.findCompleteBookingInfo();
+
+        System.out.println("=== COMPLETE BOOKING INFO ===");
+
+        for (Booking b : fullBookings) {
+            System.out.println(
+                    "Booking ID: " + b.getId() +
+                            ", User: " + b.getUser().getFirstName() + " " + b.getUser().getLastName() +
+                            ", Trip: " + b.getTrip().getTitle() +
+                            ", Flight: " + b.getTrip().getFlight().getAirline() +
+                            ", Package: " + b.getTrip().getTravelPackage().getName() +
+                            ", Payment: " + b.getPayment().getAmount()
+            );
+        }
 
         List<Flight> flights = flightService.findAll();
         System.out.println("Total flights: " + flights.size());

@@ -36,10 +36,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void create(User user) {
-        try (
-                Connection connection = ConnectionPool.getConnection();
-                PreparedStatement statement = connection.prepareStatement(INSERT)
-        ) {
+        try (Connection connection = ConnectionPool.getConnection(); PreparedStatement statement = connection.prepareStatement(INSERT)) {
             statement.setLong(1, user.getId());
             statement.setString(2, user.getFirstName());
             statement.setString(3, user.getLastName());
@@ -59,10 +56,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User findBy(Long id) {
-        try (
-                Connection connection = ConnectionPool.getConnection();
-                PreparedStatement statement = connection.prepareStatement(SELECT_BY_ID)
-        ) {
+        try (Connection connection = ConnectionPool.getConnection(); PreparedStatement statement = connection.prepareStatement(SELECT_BY_ID)) {
             statement.setLong(1, id);   // WHERE id = ?, not user_id
 
             try (ResultSet rs = statement.executeQuery()) {
@@ -81,11 +75,7 @@ public class UserDaoImpl implements UserDao {
     public List<User> findAll() {
         List<User> users = new ArrayList<>();
 
-        try (
-                Connection connection = ConnectionPool.getConnection();
-                PreparedStatement statement = connection.prepareStatement(SELECT_ALL);
-                ResultSet rs = statement.executeQuery()
-        ) {
+        try (Connection connection = ConnectionPool.getConnection(); PreparedStatement statement = connection.prepareStatement(SELECT_ALL); ResultSet rs = statement.executeQuery()) {
             while (rs.next()) {
                 users.add(mapRow(rs));
             }
@@ -98,10 +88,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void update(User user) {
-        try (
-                Connection connection = ConnectionPool.getConnection();
-                PreparedStatement statement = connection.prepareStatement(UPDATE)
-        ) {
+        try (Connection connection = ConnectionPool.getConnection(); PreparedStatement statement = connection.prepareStatement(UPDATE)) {
             statement.setString(1, user.getFirstName());
             statement.setString(2, user.getLastName());
             statement.setString(3, user.getEmail());
@@ -117,10 +104,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void delete(Long id) {
-        try (
-                Connection connection = ConnectionPool.getConnection();
-                PreparedStatement statement = connection.prepareStatement(DELETE)
-        ) {
+        try (Connection connection = ConnectionPool.getConnection(); PreparedStatement statement = connection.prepareStatement(DELETE)) {
             statement.setLong(1, id);
             statement.executeUpdate();
 

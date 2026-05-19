@@ -1,10 +1,7 @@
 package com.travel.booking.dao.impl;
 
 import com.travel.booking.dao.interfaces.BookingDao;
-import com.travel.booking.model.Booking;
-import com.travel.booking.model.Payment;
-import com.travel.booking.model.Trip;
-import com.travel.booking.model.User;
+import com.travel.booking.model.*;
 import com.travel.booking.util.ConnectionPool;
 
 import java.sql.Connection;
@@ -164,24 +161,41 @@ public class BookingDaoImpl implements BookingDao {
         }
     }
 
-    public List<String> findCompleteBookingInfo() {
+    public List<Booking> findCompleteBookingInfo() {
 
         String sql = """
-SELECT 
-    b.id AS booking_id,
-    CONCAT(u.firstName, ' ', u.lastName) AS user_name,
-    t.id AS trip_id,
-    f.airline AS flight_name,
-    tp.name AS package_name
-FROM bookings b
-INNER JOIN users u ON b.user_id = u.id
-INNER JOIN trips t ON b.trip_id = t.id
-INNER JOIN payments p ON b.payments_id = p.id
-INNER JOIN flights f ON t.flight_id = f.id
-INNER JOIN travel_packages tp ON t.travel_package_id = tp.id
-""";
+                SELECT 
+                    b.id AS booking_id,
+                
+                    u.id AS user_id,
+                    u.firstName,
+                    u.lastName,
+                    u.email,
+                
+                    t.id AS trip_id,
+                
+                    p.id AS payment_id,
+                
+                    f.id AS flight_id,
+                    f.airline,
+                
+                    tp.id AS package_id,
+                    tp.name AS package_name
+                
+                FROM bookings b
+                INNER JOIN users u
+                    ON b.user_id = u.id
+                INNER JOIN trips t
+                    ON b.trip_id = t.id
+                INNER JOIN payments p
+                    ON b.payments_id = p.id
+                INNER JOIN flights f
+                    ON t.flight_id = f.id
+                INNER JOIN travel_packages tp
+                    ON t.travel_package_id = tp.id
+                """;
 
-        List<String> result = new ArrayList<>();
+        List<Booking> bookings = new ArrayList<>();
 
         try (
                 Connection connection = ConnectionPool.getConnection();
@@ -190,19 +204,43 @@ INNER JOIN travel_packages tp ON t.travel_package_id = tp.id
         ) {
 
             while (rs.next()) {
-                String row =
-                        "BookingId=" + rs.getLong("booking_id") +
-                                ", User=" + rs.getString("user_name") +
-                                ", Trip=" + rs.getLong("trip_id") +
-                                ", Flight=" + rs.getString("flight_name") +
-                                ", Package=" + rs.getString("package_name");
-                result.add(row);
+
+                Booking booking = new Booking();
+                booking.setId(rs.getLong("booking_id"));
+
+                User user = new User();
+                user.setId(rs.getLong("user_id"));
+                user.setFirstName(rs.getString("firstName"));
+                user.setLastName(rs.getString("lastName"));
+                user.setEmail(rs.getString("email"));
+
+                Flight flight = new Flight();
+                flight.setId(rs.getLong("flight_id"));
+                flight.setAirline(rs.getString("airline"));
+
+                TravelPackage travelPackage = new TravelPackage();
+                travelPackage.setId(rs.getLong("package_id"));
+                travelPackage.setName(rs.getString("package_name"));
+
+                Trip trip = new Trip();
+                trip.setId(rs.getLong("trip_id"));
+                trip.setFlight(flight);
+                trip.setTravelPackage(travelPackage);
+
+                Payment payment = new Payment();
+                payment.setId(rs.getLong("payment_id"));
+
+                booking.setUser(user);
+                booking.setTrip(trip);
+                booking.setPayment(payment);
+
+                bookings.add(booking);
             }
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
-        return result;
+        return bookings;
     }
 }

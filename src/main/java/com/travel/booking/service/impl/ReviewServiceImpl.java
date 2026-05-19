@@ -9,7 +9,7 @@ import java.util.List;
 
 public class ReviewServiceImpl implements ReviewService {
 
-    ReviewDao reviewDao =  new ReviewDaoImpl();
+    private final ReviewDao reviewDao =  new ReviewDaoImpl();
 
     @Override
     public void save(Review review) {

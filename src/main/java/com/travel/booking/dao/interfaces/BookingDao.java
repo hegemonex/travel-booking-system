@@ -14,4 +14,6 @@ public interface BookingDao {
     void update(Booking booking);
 
     void delete(Long id);
+
+    List<Booking> findCompleteBookingInfo();
 }

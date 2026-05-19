@@ -9,7 +9,7 @@ import java.util.List;
 
 public class FlightServiceImpl implements FlightService {
 
-    FlightDao flightDao =  new FlightDaoImpl();
+    private final FlightDao flightDao =  new FlightDaoImpl();
 
     @Override
     public void save(Flight flight) {

@@ -16,10 +16,10 @@ public class Trip {
     private String title;
     private String description;
     private double price;
-    private boolean availabe;
+    private boolean available;
     private LocalDate departureDate;
     private LocalDate returnDate;
-    private LocalDateTime createdAt;
+    private LocalDate createdAt;
     private List<Destination> destinations;
     private List<Review> reviews;
 
@@ -96,11 +96,11 @@ public class Trip {
     }
 
     public boolean isAvailabe() {
-        return availabe;
+        return available;
     }
 
     public void setAvailabe(boolean availabe) {
-        this.availabe = availabe;
+        this.available = availabe;
     }
 
     public LocalDate getDepartureDate() {
@@ -127,11 +127,11 @@ public class Trip {
         this.travelPackage = travelPackage;
     }
 
-    public LocalDateTime getCreatedAt() {
+    public LocalDate getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
+    public void setCreatedAt(LocalDate createdAt) {
         this.createdAt = createdAt;
     }
 

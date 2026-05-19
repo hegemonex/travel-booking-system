@@ -37,10 +37,7 @@ public class TravelPackageDaoImpl implements TravelPackageDao {
 
     @Override
     public void create(TravelPackage travelPackage) {
-        try (
-                Connection connection = ConnectionPool.getConnection();
-                PreparedStatement statement = connection.prepareStatement(INSERT)
-        ) {
+        try (Connection connection = ConnectionPool.getConnection(); PreparedStatement statement = connection.prepareStatement(INSERT)) {
             statement.setLong(1, travelPackage.getId());
             statement.setString(2, travelPackage.getName());
             statement.setString(3, travelPackage.getDescription());
@@ -61,10 +58,7 @@ public class TravelPackageDaoImpl implements TravelPackageDao {
 
     @Override
     public TravelPackage findBy(Long id) {
-        try (
-                Connection connection = ConnectionPool.getConnection();
-                PreparedStatement statement = connection.prepareStatement(SELECT_BY_ID)
-        ) {
+        try (Connection connection = ConnectionPool.getConnection(); PreparedStatement statement = connection.prepareStatement(SELECT_BY_ID)) {
             statement.setLong(1, id);
 
             try (ResultSet rs = statement.executeQuery()) {
@@ -83,11 +77,7 @@ public class TravelPackageDaoImpl implements TravelPackageDao {
     public List<TravelPackage> findAll() {
         List<TravelPackage> packages = new ArrayList<>();
 
-        try (
-                Connection connection = ConnectionPool.getConnection();
-                PreparedStatement statement = connection.prepareStatement(SELECT_ALL);
-                ResultSet rs = statement.executeQuery()
-        ) {
+        try (Connection connection = ConnectionPool.getConnection(); PreparedStatement statement = connection.prepareStatement(SELECT_ALL); ResultSet rs = statement.executeQuery()) {
             while (rs.next()) {
                 packages.add(mapRow(rs));
             }
@@ -100,10 +90,7 @@ public class TravelPackageDaoImpl implements TravelPackageDao {
 
     @Override
     public void update(TravelPackage travelPackage) {
-        try (
-                Connection connection = ConnectionPool.getConnection();
-                PreparedStatement statement = connection.prepareStatement(UPDATE)
-        ) {
+        try (Connection connection = ConnectionPool.getConnection(); PreparedStatement statement = connection.prepareStatement(UPDATE)) {
             statement.setString(1, travelPackage.getName());
             statement.setString(2, travelPackage.getDescription());
             statement.setDouble(3, travelPackage.getPackagePrice());
@@ -121,10 +108,7 @@ public class TravelPackageDaoImpl implements TravelPackageDao {
 
     @Override
     public void delete(Long id) {
-        try (
-                Connection connection = ConnectionPool.getConnection();
-                PreparedStatement statement = connection.prepareStatement(DELETE)
-        ) {
+        try (Connection connection = ConnectionPool.getConnection(); PreparedStatement statement = connection.prepareStatement(DELETE)) {
             statement.setLong(1, id);
             statement.executeUpdate();
 

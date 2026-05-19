@@ -8,7 +8,7 @@ import com.travel.booking.service.interfaces.BookingService;
 import java.util.List;
 
 public class BookingServiceImpl implements BookingService {
-    BookingDao bookingDao = new BookingDaoImpl();
+    private final BookingDao bookingDao = new BookingDaoImpl();
 
     @Override
     public void save(Booking booking) {
@@ -33,5 +33,10 @@ public class BookingServiceImpl implements BookingService {
     @Override
     public void delete(Long id) {
         bookingDao.delete(id);
+    }
+
+    @Override
+    public List<Booking> findCompleteBookingInfo() {
+        return bookingDao.findCompleteBookingInfo();
     }
 }

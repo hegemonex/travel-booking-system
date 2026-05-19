@@ -9,7 +9,7 @@ import java.util.List;
 
 public class DestinationServiceImpl implements DestinationService {
 
-    DestinationDao destinationDao = new DestinationDaoImpl();
+    private final DestinationDao destinationDao = new DestinationDaoImpl();
 
     @Override
     public void save(Destination destination) {

@@ -36,10 +36,7 @@ public class TransportDaoImpl implements TransportDao {
 
     @Override
     public void create(Transport transport) {
-        try (
-                Connection connection = ConnectionPool.getConnection();
-                PreparedStatement statement = connection.prepareStatement(INSERT)
-        ) {
+        try (Connection connection = ConnectionPool.getConnection(); PreparedStatement statement = connection.prepareStatement(INSERT)) {
             statement.setLong(1, transport.getId());
             statement.setString(2, transport.getType());
             statement.setInt(3, transport.getCapacity());
@@ -57,10 +54,7 @@ public class TransportDaoImpl implements TransportDao {
 
     @Override
     public Transport findBy(Long id) {
-        try (
-                Connection connection = ConnectionPool.getConnection();
-                PreparedStatement statement = connection.prepareStatement(SELECT_BY_ID)
-        ) {
+        try (Connection connection = ConnectionPool.getConnection(); PreparedStatement statement = connection.prepareStatement(SELECT_BY_ID)) {
             statement.setLong(1, id);
 
             try (ResultSet rs = statement.executeQuery()) {
@@ -79,11 +73,7 @@ public class TransportDaoImpl implements TransportDao {
     public List<Transport> findAll() {
         List<Transport> transports = new ArrayList<>();
 
-        try (
-                Connection connection = ConnectionPool.getConnection();
-                PreparedStatement statement = connection.prepareStatement(SELECT_ALL);
-                ResultSet rs = statement.executeQuery()
-        ) {
+        try (Connection connection = ConnectionPool.getConnection(); PreparedStatement statement = connection.prepareStatement(SELECT_ALL); ResultSet rs = statement.executeQuery()) {
             while (rs.next()) {
                 transports.add(mapRow(rs));
             }
@@ -96,10 +86,7 @@ public class TransportDaoImpl implements TransportDao {
 
     @Override
     public void update(Transport transport) {
-        try (
-                Connection connection = ConnectionPool.getConnection();
-                PreparedStatement statement = connection.prepareStatement(UPDATE)
-        ) {
+        try (Connection connection = ConnectionPool.getConnection(); PreparedStatement statement = connection.prepareStatement(UPDATE)) {
             statement.setString(1, transport.getType());
             statement.setInt(2, transport.getCapacity());
             statement.setBoolean(3, transport.isAvailable());
@@ -115,10 +102,7 @@ public class TransportDaoImpl implements TransportDao {
 
     @Override
     public void delete(Long id) {
-        try (
-                Connection connection = ConnectionPool.getConnection();
-                PreparedStatement statement = connection.prepareStatement(DELETE)
-        ) {
+        try (Connection connection = ConnectionPool.getConnection(); PreparedStatement statement = connection.prepareStatement(DELETE)) {
             statement.setLong(1, id);
             statement.executeUpdate();
 

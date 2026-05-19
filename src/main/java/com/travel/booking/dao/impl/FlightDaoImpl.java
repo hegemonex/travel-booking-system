@@ -40,10 +40,7 @@ public class FlightDaoImpl implements FlightDao {
 
     @Override
     public void create(Flight flight) {
-        try (
-                Connection connection = ConnectionPool.getConnection();
-                PreparedStatement statement = connection.prepareStatement(INSERT)
-        ) {
+        try (Connection connection = ConnectionPool.getConnection(); PreparedStatement statement = connection.prepareStatement(INSERT)) {
             statement.setLong(1, flight.getId());
             statement.setString(2, flight.getAirline());
             statement.setString(3, flight.getDepartureAirport());
@@ -63,10 +60,7 @@ public class FlightDaoImpl implements FlightDao {
 
     @Override
     public Flight findBy(Long id) {
-        try (
-                Connection connection = ConnectionPool.getConnection();
-                PreparedStatement statement = connection.prepareStatement(SELECT_BY_ID)
-        ) {
+        try (Connection connection = ConnectionPool.getConnection(); PreparedStatement statement = connection.prepareStatement(SELECT_BY_ID)) {
             statement.setLong(1, id);
 
             try (ResultSet rs = statement.executeQuery()) {
@@ -85,11 +79,7 @@ public class FlightDaoImpl implements FlightDao {
     public List<Flight> findAll() {
         List<Flight> flights = new ArrayList<>();
 
-        try (
-                Connection connection = ConnectionPool.getConnection();
-                PreparedStatement statement = connection.prepareStatement(SELECT_ALL);
-                ResultSet rs = statement.executeQuery()
-        ) {
+        try (Connection connection = ConnectionPool.getConnection(); PreparedStatement statement = connection.prepareStatement(SELECT_ALL); ResultSet rs = statement.executeQuery()) {
             while (rs.next()) {
                 flights.add(mapRow(rs));
             }
@@ -102,10 +92,7 @@ public class FlightDaoImpl implements FlightDao {
 
     @Override
     public void update(Flight flight) {
-        try (
-                Connection connection = ConnectionPool.getConnection();
-                PreparedStatement statement = connection.prepareStatement(UPDATE)
-        ) {
+        try (Connection connection = ConnectionPool.getConnection(); PreparedStatement statement = connection.prepareStatement(UPDATE)) {
             statement.setString(1, flight.getAirline());
             statement.setString(2, flight.getDepartureAirport());
             statement.setString(3, flight.getArrivalAirport());
@@ -124,10 +111,7 @@ public class FlightDaoImpl implements FlightDao {
 
     @Override
     public void delete(Long id) {
-        try (
-                Connection connection = ConnectionPool.getConnection();
-                PreparedStatement statement = connection.prepareStatement(DELETE)
-        ) {
+        try (Connection connection = ConnectionPool.getConnection(); PreparedStatement statement = connection.prepareStatement(DELETE)) {
             statement.setLong(1, id);
             statement.executeUpdate();
 

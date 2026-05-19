@@ -36,10 +36,7 @@ public class TravelBookingSystemDaoImpl implements TravelBookingSystemDao {
 
     @Override
     public void create(TravelBookingSystem tbs) {
-        try (
-                Connection connection = ConnectionPool.getConnection();
-                PreparedStatement statement = connection.prepareStatement(INSERT)
-        ) {
+        try (Connection connection = ConnectionPool.getConnection(); PreparedStatement statement = connection.prepareStatement(INSERT)) {
             statement.setLong(1, tbs.getId());
             statement.setString(2, tbs.getSystemName());
             statement.setDate(3, Date.valueOf(tbs.getCreatedAt().toLocalDate()));
@@ -54,10 +51,7 @@ public class TravelBookingSystemDaoImpl implements TravelBookingSystemDao {
 
     @Override
     public TravelBookingSystem findBy(Long id) {
-        try (
-                Connection connection = ConnectionPool.getConnection();
-                PreparedStatement statement = connection.prepareStatement(SELECT_BY_ID)
-        ) {
+        try (Connection connection = ConnectionPool.getConnection(); PreparedStatement statement = connection.prepareStatement(SELECT_BY_ID)) {
             statement.setLong(1, id);
 
             try (ResultSet rs = statement.executeQuery()) {
@@ -76,11 +70,7 @@ public class TravelBookingSystemDaoImpl implements TravelBookingSystemDao {
     public List<TravelBookingSystem> findAll() {
         List<TravelBookingSystem> list = new ArrayList<>();
 
-        try (
-                Connection connection = ConnectionPool.getConnection();
-                PreparedStatement statement = connection.prepareStatement(SELECT_ALL);
-                ResultSet rs = statement.executeQuery()
-        ) {
+        try (Connection connection = ConnectionPool.getConnection(); PreparedStatement statement = connection.prepareStatement(SELECT_ALL); ResultSet rs = statement.executeQuery()) {
             while (rs.next()) {
                 list.add(mapRow(rs));
             }
@@ -93,10 +83,7 @@ public class TravelBookingSystemDaoImpl implements TravelBookingSystemDao {
 
     @Override
     public void update(TravelBookingSystem tbs) {
-        try (
-                Connection connection = ConnectionPool.getConnection();
-                PreparedStatement statement = connection.prepareStatement(UPDATE)
-        ) {
+        try (Connection connection = ConnectionPool.getConnection(); PreparedStatement statement = connection.prepareStatement(UPDATE)) {
             statement.setString(1, tbs.getSystemName());
             statement.setLong(2, tbs.getId());
 
@@ -109,10 +96,7 @@ public class TravelBookingSystemDaoImpl implements TravelBookingSystemDao {
 
     @Override
     public void delete(Long id) {
-        try (
-                Connection connection = ConnectionPool.getConnection();
-                PreparedStatement statement = connection.prepareStatement(DELETE)
-        ) {
+        try (Connection connection = ConnectionPool.getConnection(); PreparedStatement statement = connection.prepareStatement(DELETE)) {
             statement.setLong(1, id);
             statement.executeUpdate();
 
