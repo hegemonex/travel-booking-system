@@ -1,34 +1,25 @@
 package com.travel.booking.util;
 
-import com.zaxxer.hikari.HikariConfig;
-import com.zaxxer.hikari.HikariDataSource;
+import com.travel.booking.config.DatabaseConfig;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
 
 
 public class ConnectionPool {
-    private static final HikariDataSource dataSource;
 
-    static {
-
-        HikariConfig config = new HikariConfig();
-
-        config.setJdbcUrl("jdbc:mysql://localhost:3306/mydb");
-
-        config.setUsername("root");
-
-        config.setPassword("1234");
-
-        config.setDriverClassName("com.mysql.cj.jdbc.Driver");
-
-        dataSource = new HikariDataSource(config);
-    }
+    private static final DatabaseConfig databaseConfig = new DatabaseConfig();
 
     public static Connection getConnection() {
 
         try {
-            return dataSource.getConnection();
+            return DriverManager.getConnection(
+                    databaseConfig.getUrl(),
+                    databaseConfig.getUsername(),
+                    databaseConfig.getPassword()
+            );
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
