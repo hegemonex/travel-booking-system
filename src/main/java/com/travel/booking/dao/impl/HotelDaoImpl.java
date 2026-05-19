@@ -27,8 +27,8 @@ public class HotelDaoImpl implements HotelDao {
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?)
                 """;
 
+        Connection connection = ConnectionPool.getConnection();
         try (
-                Connection connection = ConnectionPool.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql);
         ) {
 
@@ -45,6 +45,8 @@ public class HotelDaoImpl implements HotelDao {
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        } finally {
+            ConnectionPool.releaseConnection(connection);
         }
     }
 
@@ -56,8 +58,9 @@ public class HotelDaoImpl implements HotelDao {
                 WHERE id = ?
                 """;
 
+
+        Connection connection = ConnectionPool.getConnection();
         try (
-                Connection connection = ConnectionPool.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql);
         ) {
 
@@ -86,6 +89,8 @@ public class HotelDaoImpl implements HotelDao {
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        } finally {
+            ConnectionPool.releaseConnection(connection);
         }
 
         return null;
@@ -98,8 +103,9 @@ public class HotelDaoImpl implements HotelDao {
 
         List<Hotel> hotels = new ArrayList<>();
 
+        Connection connection = ConnectionPool.getConnection();
+
         try (
-                Connection connection = ConnectionPool.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql);
                 ResultSet rs = statement.executeQuery();
         ) {
@@ -124,6 +130,8 @@ public class HotelDaoImpl implements HotelDao {
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        } finally {
+            ConnectionPool.releaseConnection(connection);
         }
 
         return hotels;
@@ -144,8 +152,10 @@ public class HotelDaoImpl implements HotelDao {
                 WHERE id = ?
                 """;
 
+
+        Connection connection = ConnectionPool.getConnection();
+
         try (
-                Connection connection = ConnectionPool.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql);
         ) {
 
@@ -161,6 +171,8 @@ public class HotelDaoImpl implements HotelDao {
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        } finally {
+            ConnectionPool.releaseConnection(connection);
         }
     }
 

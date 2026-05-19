@@ -6,6 +6,7 @@ import com.travel.booking.dao.interfaces.HotelDao;
 import com.travel.booking.dao.interfaces.TripDao;
 import com.travel.booking.model.Hotel;
 import com.travel.booking.model.Trip;
+import com.travel.booking.service.interfaces.HotelService;
 import com.travel.booking.service.interfaces.TripService;
 
 import java.util.List;
@@ -13,7 +14,7 @@ import java.util.List;
 public class TripServiceImpl implements TripService {
 
     private final TripDao tripDao = new TripDaoImpl();
-    private final HotelDao hotelDao = new HotelDaoImpl();
+    private final HotelService hotelService = new HotelServiceImpl();
 
     @Override
     public void save(Trip trip) {
@@ -43,16 +44,12 @@ public class TripServiceImpl implements TripService {
     @Override
     public void saveTripWithHotel(Trip trip) {
 
-        if (trip.getHotel() == null) {
-            throw new IllegalArgumentException("Hotel cannot be null");
-        }
-
         tripDao.create(trip);
 
         Hotel hotel = trip.getHotel();
 
         hotel.setTrip(trip);
 
-        hotelDao.create(hotel);
+        hotelService.save(hotel);
     }
 }

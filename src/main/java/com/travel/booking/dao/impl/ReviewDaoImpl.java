@@ -38,7 +38,8 @@ public class ReviewDaoImpl implements ReviewDao {
 
     @Override
     public void create(Review review) {
-        try (Connection connection = ConnectionPool.getConnection(); PreparedStatement statement = connection.prepareStatement(INSERT)) {
+        Connection connection = ConnectionPool.getConnection();
+        try ( PreparedStatement statement = connection.prepareStatement(INSERT)) {
             statement.setLong(1, review.getId());
             statement.setInt(2, review.getRating());
             statement.setString(3, review.getComment());
@@ -57,7 +58,8 @@ public class ReviewDaoImpl implements ReviewDao {
 
     @Override
     public Review findBy(Long id) {
-        try (Connection connection = ConnectionPool.getConnection(); PreparedStatement statement = connection.prepareStatement(SELECT_BY_ID)) {
+        Connection connection = ConnectionPool.getConnection();
+        try (PreparedStatement statement = connection.prepareStatement(SELECT_BY_ID)) {
             statement.setLong(1, id);
 
             try (ResultSet rs = statement.executeQuery()) {
@@ -68,6 +70,8 @@ public class ReviewDaoImpl implements ReviewDao {
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        } finally {
+            ConnectionPool.releaseConnection(connection);
         }
         return null;
     }
@@ -75,21 +79,24 @@ public class ReviewDaoImpl implements ReviewDao {
     @Override
     public List<Review> findAll() {
         List<Review> reviews = new ArrayList<>();
-
-        try (Connection connection = ConnectionPool.getConnection(); PreparedStatement statement = connection.prepareStatement(SELECT_ALL); ResultSet rs = statement.executeQuery()) {
+        Connection connection = ConnectionPool.getConnection();
+        try (PreparedStatement statement = connection.prepareStatement(SELECT_ALL); ResultSet rs = statement.executeQuery()) {
             while (rs.next()) {
                 reviews.add(mapRow(rs));
             }
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        } finally {
+            ConnectionPool.releaseConnection(connection);
         }
         return reviews;
     }
 
     @Override
     public void update(Review review) {
-        try (Connection connection = ConnectionPool.getConnection(); PreparedStatement statement = connection.prepareStatement(UPDATE)) {
+        Connection connection = ConnectionPool.getConnection();
+        try (PreparedStatement statement = connection.prepareStatement(UPDATE)) {
             statement.setInt(1, review.getRating());
             statement.setString(2, review.getComment());
             statement.setBoolean(3, review.isRecommended());
@@ -100,17 +107,22 @@ public class ReviewDaoImpl implements ReviewDao {
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        } finally {
+            ConnectionPool.releaseConnection(connection);
         }
     }
 
     @Override
     public void delete(Long id) {
-        try (Connection connection = ConnectionPool.getConnection(); PreparedStatement statement = connection.prepareStatement(DELETE)) {
+        Connection connection = ConnectionPool.getConnection();
+        try (PreparedStatement statement = connection.prepareStatement(DELETE)) {
             statement.setLong(1, id);
             statement.executeUpdate();
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        } finally {
+            ConnectionPool.releaseConnection(connection);
         }
     }
 

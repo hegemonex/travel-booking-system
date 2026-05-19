@@ -19,8 +19,9 @@ public class BookingDaoImpl implements BookingDao {
                 VALUES (?, ?, ?)
                 """;
 
+        Connection connection = ConnectionPool.getConnection();
+
         try (
-                Connection connection = ConnectionPool.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql);
         ) {
 
@@ -32,6 +33,8 @@ public class BookingDaoImpl implements BookingDao {
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        } finally {
+            ConnectionPool.releaseConnection(connection);
         }
     }
 
@@ -42,8 +45,9 @@ public class BookingDaoImpl implements BookingDao {
                 WHERE id = ?
                 """;
 
+        Connection connection = ConnectionPool.getConnection();
+
         try (
-                Connection connection = ConnectionPool.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql);
         ) {
 
@@ -73,6 +77,8 @@ public class BookingDaoImpl implements BookingDao {
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally {
+            ConnectionPool.releaseConnection(connection);
         }
 
         return null;
@@ -83,9 +89,9 @@ public class BookingDaoImpl implements BookingDao {
         String sql = "SELECT * FROM bookings";
 
         List<Booking> list = new ArrayList<>();
+        Connection connection = ConnectionPool.getConnection();
 
         try (
-                Connection connection = ConnectionPool.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql);
                 ResultSet rs = statement.executeQuery();
         ) {
@@ -111,6 +117,8 @@ public class BookingDaoImpl implements BookingDao {
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally {
+            ConnectionPool.releaseConnection(connection);
         }
 
         return list;
@@ -123,9 +131,9 @@ public class BookingDaoImpl implements BookingDao {
             SET user_id = ?, trip_id = ?, payments_id = ?
             WHERE id = ?
             """;
+        Connection connection = ConnectionPool.getConnection();
 
         try (
-                Connection connection = ConnectionPool.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql);
         ) {
 
@@ -138,6 +146,8 @@ public class BookingDaoImpl implements BookingDao {
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally {
+            ConnectionPool.releaseConnection(connection);
         }
     }
 
@@ -147,9 +157,9 @@ public class BookingDaoImpl implements BookingDao {
             DELETE FROM bookings
             WHERE id = ?
             """;
+        Connection connection = ConnectionPool.getConnection();
 
         try (
-                Connection connection = ConnectionPool.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql);
         ) {
 
@@ -158,6 +168,8 @@ public class BookingDaoImpl implements BookingDao {
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally {
+            ConnectionPool.releaseConnection(connection);
         }
     }
 
@@ -196,9 +208,9 @@ public class BookingDaoImpl implements BookingDao {
                 """;
 
         List<Booking> bookings = new ArrayList<>();
+        Connection connection = ConnectionPool.getConnection();
 
         try (
-                Connection connection = ConnectionPool.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql);
                 ResultSet rs = statement.executeQuery();
         ) {
@@ -239,6 +251,8 @@ public class BookingDaoImpl implements BookingDao {
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally {
+            ConnectionPool.releaseConnection(connection);
         }
 
         return bookings;

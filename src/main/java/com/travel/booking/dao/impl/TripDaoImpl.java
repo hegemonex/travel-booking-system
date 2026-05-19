@@ -81,8 +81,8 @@ public class TripDaoImpl implements TripDao {
 
     @Override
     public void create(Trip trip) {
-
-        try (Connection connection = ConnectionPool.getConnection(); PreparedStatement statement = connection.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS)) {
+        Connection connection = ConnectionPool.getConnection();
+        try (PreparedStatement statement = connection.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS)) {
 
             statement.setString(1, trip.getTitle());
             statement.setString(2, trip.getDescription());
@@ -107,13 +107,15 @@ public class TripDaoImpl implements TripDao {
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        } finally {
+            ConnectionPool.releaseConnection(connection);
         }
     }
 
     @Override
     public Trip findBy(Long id) {
-
-        try (Connection connection = ConnectionPool.getConnection(); PreparedStatement statement = connection.prepareStatement(SELECT_BY_ID)) {
+        Connection connection = ConnectionPool.getConnection();
+        try (PreparedStatement statement = connection.prepareStatement(SELECT_BY_ID)) {
 
             statement.setLong(1, id);
 
@@ -125,6 +127,8 @@ public class TripDaoImpl implements TripDao {
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        } finally {
+            ConnectionPool.releaseConnection(connection);
         }
 
         return null;
@@ -134,8 +138,8 @@ public class TripDaoImpl implements TripDao {
     public List<Trip> findAll() {
 
         List<Trip> trips = new ArrayList<>();
-
-        try (Connection connection = ConnectionPool.getConnection(); PreparedStatement statement = connection.prepareStatement(SELECT_ALL); ResultSet rs = statement.executeQuery()) {
+        Connection connection = ConnectionPool.getConnection();
+        try (PreparedStatement statement = connection.prepareStatement(SELECT_ALL); ResultSet rs = statement.executeQuery()) {
 
             while (rs.next()) {
                 trips.add(mapRow(rs));
@@ -143,6 +147,8 @@ public class TripDaoImpl implements TripDao {
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        } finally {
+            ConnectionPool.releaseConnection(connection);
         }
 
         return trips;
@@ -150,8 +156,8 @@ public class TripDaoImpl implements TripDao {
 
     @Override
     public void update(Trip trip) {
-
-        try (Connection connection = ConnectionPool.getConnection(); PreparedStatement statement = connection.prepareStatement(UPDATE)) {
+        Connection connection = ConnectionPool.getConnection();
+        try (PreparedStatement statement = connection.prepareStatement(UPDATE)) {
 
             statement.setString(1, trip.getTitle());
             statement.setString(2, trip.getDescription());
@@ -170,19 +176,23 @@ public class TripDaoImpl implements TripDao {
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        } finally {
+            ConnectionPool.releaseConnection(connection);
         }
     }
 
     @Override
     public void delete(Long id) {
-
-        try (Connection connection = ConnectionPool.getConnection(); PreparedStatement statement = connection.prepareStatement(DELETE)) {
+        Connection connection = ConnectionPool.getConnection();
+        try (PreparedStatement statement = connection.prepareStatement(DELETE)) {
 
             statement.setLong(1, id);
             statement.executeUpdate();
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        } finally {
+            ConnectionPool.releaseConnection(connection);
         }
     }
 
