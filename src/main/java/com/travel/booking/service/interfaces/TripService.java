@@ -18,5 +18,6 @@ public interface TripService {
 
     void delete(Long id);
 
+
     void saveTripWithHotel(Trip trip);
 }

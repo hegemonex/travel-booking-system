@@ -1,38 +1,67 @@
 package com.travel.booking.service.impl;
 
-import com.travel.booking.dao.impl.HotelDaoImpl;
-import com.travel.booking.dao.interfaces.HotelDao;
+import com.travel.booking.dao.mybatis.HotelMapper;
 import com.travel.booking.model.Hotel;
 import com.travel.booking.service.interfaces.HotelService;
+import com.travel.booking.util.MyBatisUtil;
+import org.apache.ibatis.session.SqlSession;
 
 import java.util.List;
 
 public class HotelServiceImpl implements HotelService {
 
-    private final HotelDao hotelDao = new HotelDaoImpl();
-
     @Override
     public void save(Hotel hotel) {
-        hotelDao.create(hotel);
+
+        try (SqlSession session =
+                     MyBatisUtil.getSqlSessionFactory().openSession(true)) {
+
+            HotelMapper mapper = session.getMapper(HotelMapper.class);
+            mapper.create(hotel);
+        }
     }
 
     @Override
     public Hotel findById(Long id) {
-        return hotelDao.findBy(id);
+
+        try (SqlSession session =
+                     MyBatisUtil.getSqlSessionFactory().openSession()) {
+
+            HotelMapper mapper = session.getMapper(HotelMapper.class);
+            return mapper.findBy(id);
+        }
     }
 
     @Override
     public List<Hotel> findAll() {
-        return hotelDao.findAll();
+
+        try (SqlSession session =
+                     MyBatisUtil.getSqlSessionFactory().openSession()) {
+
+            HotelMapper mapper = session.getMapper(HotelMapper.class);
+            return mapper.findAll();
+        }
     }
 
     @Override
     public void update(Hotel hotel) {
-        hotelDao.update(hotel);
+
+        try (SqlSession session =
+                     MyBatisUtil.getSqlSessionFactory().openSession(true)) {
+
+            HotelMapper mapper = session.getMapper(HotelMapper.class);
+            mapper.update(hotel);
+        }
     }
 
     @Override
     public void delete(Long id) {
-        hotelDao.delete(id);
+
+        try (SqlSession session =
+                     MyBatisUtil.getSqlSessionFactory().openSession(true)) {
+
+            HotelMapper mapper = session.getMapper(HotelMapper.class);
+            mapper.delete(id);
+        }
     }
 }

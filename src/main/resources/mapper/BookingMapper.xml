@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.travel.booking.dao.mybatis.BookingMapper">
+
+    <insert id="create" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO bookings (
+        totalPrice,
+        confirmed,
+        bookingDate,
+        createdAt,
+        user_id,
+        trip_id,
+        payments_id
+        )
+        VALUES (
+        #{totalPrice},
+        #{confirmed},
+        #{bookingDate},
+        #{createdAt},
+        #{user.id},
+        #{trip.id},
+        #{payment.id}
+        )
+    </insert>
+
+    <select id="findById" resultType="com.travel.booking.model.Booking">
+        SELECT *
+        FROM bookings
+        WHERE id = #{id}
+    </select>
+
+    <select id="findAll" resultType="com.travel.booking.model.Booking">
+        SELECT *
+        FROM bookings
+    </select>
+
+    <update id="update">
+        UPDATE bookings
+        SET user_id = #{user.id},
+        trip_id = #{trip.id},
+        payments_id = #{payment.id}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM bookings
+        WHERE id = #{id}
+    </delete>
+
+    <select id="findCompleteBookingInfo"
+            resultMap="bookingResultMap">
+
+        SELECT
+        b.id AS booking_id,
+
+        u.id AS user_id,
+        u.firstName,
+        u.lastName,
+        u.email,
+
+        t.id AS trip_id,
+
+        p.id AS payment_id,
+
+        f.id AS flight_id,
+        f.airline,
+
+        tp.id AS package_id,
+        tp.name AS package_name
+
+        FROM bookings b
+        INNER JOIN users u
+        ON b.user_id = u.id
+        INNER JOIN trips t
+        ON b.trip_id = t.id
+        INNER JOIN payments p
+        ON b.payments_id = p.id
+        INNER JOIN flights f
+        ON t.flight_id = f.id
+        INNER JOIN travel_packages tp
+        ON t.travel_package_id = tp.id
+
+    </select>
+
+    <resultMap id="bookingResultMap"
+               type="com.travel.booking.model.Booking">
+
+        <id property="id" column="booking_id"/>
+
+        <association property="user"
+                     javaType="com.travel.booking.model.User">
+
+            <id property="id" column="user_id"/>
+            <result property="firstName" column="firstName"/>
+            <result property="lastName" column="lastName"/>
+            <result property="email" column="email"/>
+
+        </association>
+
+        <association property="trip"
+                     javaType="com.travel.booking.model.Trip">
+
+            <id property="id" column="trip_id"/>
+
+            <association property="flight"
+                         javaType="com.travel.booking.model.Flight">
+
+                <id property="id" column="flight_id"/>
+                <result property="airline" column="airline"/>
+
+            </association>
+
+            <association property="travelPackage"
+                         javaType="com.travel.booking.model.TravelPackage">
+
+                <id property="id" column="package_id"/>
+                <result property="name" column="package_name"/>
+
+            </association>
+
+        </association>
+
+        <association property="payment"
+                     javaType="com.travel.booking.model.Payment">
+
+            <id property="id" column="payment_id"/>
+
+        </association>
+
+    </resultMap>
+
+</mapper>

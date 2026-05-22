@@ -1,55 +1,79 @@
 package com.travel.booking.service.impl;
 
-import com.travel.booking.dao.impl.HotelDaoImpl;
-import com.travel.booking.dao.impl.TripDaoImpl;
-import com.travel.booking.dao.interfaces.HotelDao;
-import com.travel.booking.dao.interfaces.TripDao;
-import com.travel.booking.model.Hotel;
+import com.travel.booking.dao.mybatis.TripMapper;
 import com.travel.booking.model.Trip;
 import com.travel.booking.service.interfaces.HotelService;
 import com.travel.booking.service.interfaces.TripService;
+import com.travel.booking.util.MyBatisUtil;
+import org.apache.ibatis.session.SqlSession;
 
 import java.util.List;
 
 public class TripServiceImpl implements TripService {
 
-    private final TripDao tripDao = new TripDaoImpl();
     private final HotelService hotelService = new HotelServiceImpl();
 
     @Override
     public void save(Trip trip) {
-        tripDao.create(trip);
+        try (SqlSession session =
+                     MyBatisUtil.getSqlSessionFactory().openSession(true)) {
+
+            TripMapper mapper = session.getMapper(TripMapper.class);
+            mapper.create(trip);
+        }
     }
 
     @Override
     public Trip findById(Long id) {
-        return tripDao.findBy(id);
+        try (SqlSession session =
+                     MyBatisUtil.getSqlSessionFactory().openSession()) {
+
+            TripMapper mapper = session.getMapper(TripMapper.class);
+            return mapper.findBy(id);
+        }
     }
 
     @Override
     public List<Trip> findAll() {
-        return tripDao.findAll();
+        try (SqlSession session =
+                     MyBatisUtil.getSqlSessionFactory().openSession()) {
+
+            TripMapper mapper = session.getMapper(TripMapper.class);
+            return mapper.findAll();
+        }
     }
 
     @Override
     public void update(Trip trip) {
-        tripDao.update(trip);
+        try (SqlSession session =
+                     MyBatisUtil.getSqlSessionFactory().openSession(true)) {
+
+            TripMapper mapper = session.getMapper(TripMapper.class);
+            mapper.update(trip);
+        }
     }
 
     @Override
     public void delete(Long id) {
-        tripDao.delete(id);
+        try (SqlSession session =
+                     MyBatisUtil.getSqlSessionFactory().openSession(true)) {
+
+            TripMapper mapper = session.getMapper(TripMapper.class);
+            mapper.delete(id);
+        }
     }
 
     @Override
     public void saveTripWithHotel(Trip trip) {
 
-        tripDao.create(trip);
+        save(trip);
 
-        Hotel hotel = trip.getHotel();
+        if (trip.getHotel() == null) {
+            throw new RuntimeException("Hotel is null in Trip");
+        }
 
-        hotel.setTrip(trip);
+        trip.getHotel().setTrip(trip);
 
-        hotelService.save(hotel);
+        hotelService.save(trip.getHotel());
     }
 }

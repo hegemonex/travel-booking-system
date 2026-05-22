@@ -1,42 +1,72 @@
 package com.travel.booking.service.impl;
 
-import com.travel.booking.dao.impl.BookingDaoImpl;
-import com.travel.booking.dao.interfaces.BookingDao;
+import com.travel.booking.dao.mybatis.BookingMapper;
 import com.travel.booking.model.Booking;
 import com.travel.booking.service.interfaces.BookingService;
+import com.travel.booking.util.MyBatisUtil;
+import org.apache.ibatis.session.SqlSession;
 
 import java.util.List;
 
 public class BookingServiceImpl implements BookingService {
-    private final BookingDao bookingDao = new BookingDaoImpl();
 
     @Override
     public void save(Booking booking) {
-        bookingDao.create(booking);
+
+        try (SqlSession session = MyBatisUtil.getSqlSessionFactory().openSession(true)) {
+
+            BookingMapper mapper = session.getMapper(BookingMapper.class);
+            mapper.create(booking);
+        }
     }
 
     @Override
     public Booking findById(Long id) {
-        return bookingDao.findBy(id);
+
+        try (SqlSession session = MyBatisUtil.getSqlSessionFactory().openSession()) {
+
+            BookingMapper mapper = session.getMapper(BookingMapper.class);
+            return mapper.findBy(id);
+        }
     }
 
     @Override
     public List<Booking> findAll() {
-        return bookingDao.findAll();
+
+        try (SqlSession session = MyBatisUtil.getSqlSessionFactory().openSession()) {
+
+            BookingMapper mapper = session.getMapper(BookingMapper.class);
+            return mapper.findAll();
+        }
     }
 
     @Override
     public void update(Booking booking) {
-        bookingDao.update(booking);
+
+        try (SqlSession session = MyBatisUtil.getSqlSessionFactory().openSession(true)) {
+
+            BookingMapper mapper = session.getMapper(BookingMapper.class);
+            mapper.update(booking);
+        }
     }
 
     @Override
     public void delete(Long id) {
-        bookingDao.delete(id);
+
+        try (SqlSession session = MyBatisUtil.getSqlSessionFactory().openSession(true)) {
+
+            BookingMapper mapper = session.getMapper(BookingMapper.class);
+            mapper.delete(id);
+        }
     }
 
     @Override
     public List<Booking> findCompleteBookingInfo() {
-        return bookingDao.findCompleteBookingInfo();
+
+        try (SqlSession session = MyBatisUtil.getSqlSessionFactory().openSession()) {
+
+            BookingMapper mapper = session.getMapper(BookingMapper.class);
+            return mapper.findCompleteBookingInfo();
+        }
     }
 }

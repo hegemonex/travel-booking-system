@@ -1,38 +1,77 @@
 package com.travel.booking.service.impl;
 
-import com.travel.booking.dao.impl.FlightDaoImpl;
-import com.travel.booking.dao.interfaces.FlightDao;
+import com.travel.booking.dao.mybatis.FlightMapper;
 import com.travel.booking.model.Flight;
 import com.travel.booking.service.interfaces.FlightService;
+import com.travel.booking.util.MyBatisUtil;
+import org.apache.ibatis.session.SqlSession;
 
 import java.util.List;
 
 public class FlightServiceImpl implements FlightService {
 
-    private final FlightDao flightDao =  new FlightDaoImpl();
-
     @Override
     public void save(Flight flight) {
-        flightDao.create(flight);
+
+        try (SqlSession session =
+                     MyBatisUtil.getSqlSessionFactory().openSession(true)) {
+
+            FlightMapper mapper =
+                    session.getMapper(FlightMapper.class);
+
+            mapper.create(flight);
+        }
     }
 
     @Override
     public Flight findById(Long id) {
-        return flightDao.findBy(id);
+
+        try (SqlSession session =
+                     MyBatisUtil.getSqlSessionFactory().openSession()) {
+
+            FlightMapper mapper =
+                    session.getMapper(FlightMapper.class);
+
+            return mapper.findBy(id);
+        }
     }
 
     @Override
     public List<Flight> findAll() {
-        return flightDao.findAll();
+
+        try (SqlSession session =
+                     MyBatisUtil.getSqlSessionFactory().openSession()) {
+
+            FlightMapper mapper =
+                    session.getMapper(FlightMapper.class);
+
+            return mapper.findAll();
+        }
     }
 
     @Override
     public void update(Flight flight) {
-        flightDao.update(flight);
+
+        try (SqlSession session =
+                     MyBatisUtil.getSqlSessionFactory().openSession(true)) {
+
+            FlightMapper mapper =
+                    session.getMapper(FlightMapper.class);
+
+            mapper.update(flight);
+        }
     }
 
     @Override
     public void delete(Long id) {
-        flightDao.delete(id);
+
+        try (SqlSession session =
+                     MyBatisUtil.getSqlSessionFactory().openSession(true)) {
+
+            FlightMapper mapper =
+                    session.getMapper(FlightMapper.class);
+
+            mapper.delete(id);
+        }
     }
 }
