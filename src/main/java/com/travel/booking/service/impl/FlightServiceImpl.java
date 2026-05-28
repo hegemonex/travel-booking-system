@@ -1,6 +1,6 @@
 package com.travel.booking.service.impl;
 
-import com.travel.booking.dao.mybatis.FlightMapper;
+import com.travel.booking.mybatis.mapper.FlightMapper;
 import com.travel.booking.model.Flight;
 import com.travel.booking.service.interfaces.FlightService;
 import com.travel.booking.util.MyBatisUtil;

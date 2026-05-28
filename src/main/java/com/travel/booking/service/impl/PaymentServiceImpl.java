@@ -1,6 +1,6 @@
 package com.travel.booking.service.impl;
 
-import com.travel.booking.dao.mybatis.PaymentMapper;
+import com.travel.booking.mybatis.mapper.PaymentMapper;
 import com.travel.booking.model.Payment;
 import com.travel.booking.service.interfaces.PaymentService;
 import com.travel.booking.util.MyBatisUtil;

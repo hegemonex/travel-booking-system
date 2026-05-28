@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.travel.booking.dao.mybatis.FlightMapper">
+<mapper namespace="com.travel.booking.mybatis.mapper.FlightMapper">
 
     <insert id="create" useGeneratedKeys="true" keyProperty="id">
 

@@ -1,4 +1,4 @@
-package com.travel.booking.dao.mybatis;
+package com.travel.booking.mybatis.mapper;
 
 import com.travel.booking.model.Booking;
 

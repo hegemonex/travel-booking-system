@@ -23,6 +23,7 @@ public class Main {
         tbs.setSystemName("Main System");
         tbs.setCreatedAt(LocalDateTime.now());
         tbsService.save(tbs);
+
         System.out.println("TBS ID = " + tbs.getId());
 
         Transport transport = new Transport();
@@ -45,7 +46,6 @@ public class Main {
         flightService.save(flight);
 
         TravelPackage pack = new TravelPackage();
-        pack.setTravelBookingSystem(tbs);
         pack.setName("London Package");
         pack.setDescription("All inclusive");
         pack.setPackagePrice(1200);
@@ -81,23 +81,13 @@ public class Main {
         trip.setAvailabe(true);
         trip.setDepartureDate(LocalDate.of(2025, 6, 1));
         trip.setReturnDate(LocalDate.of(2025, 6, 6));
-        trip.setCreatedAt(LocalDate.from(LocalDateTime.now()));
+        trip.setCreatedAt(LocalDate.now());
 
         trip.setFlight(flight);
         trip.setTransport(transport);
         trip.setTravelPackage(pack);
         trip.setTravelBookingSystem(tbs);
-
-        Hotel hotel = new Hotel();
-        hotel.setName("Hilton");
-        hotel.setCity("London");
-        hotel.setAddress("Central");
-        hotel.setStarRating(5);
-        hotel.setBreakfastIncluded(true);
-        hotel.setPricePerNight(200);
-        hotel.setCreatedAt(LocalDateTime.now());
-
-        trip.setHotel(hotel);
+        trip.setHotel(buildHotel());
 
         tripService.saveTripWithHotel(trip);
 
@@ -109,36 +99,43 @@ public class Main {
         review.setRecommended(true);
         review.setReviewDate(LocalDate.now());
         review.setCreatedAt(LocalDateTime.now());
-        reviewService.save(review);
 
-        Booking booking = new Booking();
-        booking.setUser(user);
-        booking.setTrip(trip);
-        booking.setTotalPrice(trip.getPrice());
+        reviewService.save(review);
 
         Payment payment = new Payment();
         payment.setPaymentMethod("CARD");
-        payment.setAmount(999);
+        payment.setAmount(trip.getPrice());
         payment.setSuccessful(true);
         payment.setPaymentDate(LocalDate.now());
         payment.setCreatedAt(LocalDateTime.now());
 
         paymentService.save(payment);
 
+        Booking booking = new Booking();
         booking.setUser(user);
         booking.setTrip(trip);
         booking.setPayment(payment);
-
         booking.setTotalPrice(trip.getPrice());
-
-        booking.setConfirmed(false);
-
+        booking.setConfirmed(true);
         booking.setBookingDate(LocalDate.now());
-
         booking.setCreatedAt(LocalDateTime.now());
+
+        bookingService.save(booking);
 
         System.out.println("Trips: " + tripService.findAll().size());
         System.out.println("Users: " + userService.findAll().size());
         System.out.println("Bookings complete: " + bookingService.findCompleteBookingInfo().size());
+    }
+
+    private static Hotel buildHotel() {
+        Hotel hotel = new Hotel();
+        hotel.setName("Hilton");
+        hotel.setCity("London");
+        hotel.setAddress("Central");
+        hotel.setStarRating(5);
+        hotel.setBreakfastIncluded(true);
+        hotel.setPricePerNight(200);
+        hotel.setCreatedAt(LocalDateTime.now());
+        return hotel;
     }
 }
