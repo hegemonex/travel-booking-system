@@ -229,7 +229,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`hotels` (
   `breakfastIncluded` TINYINT NOT NULL,
   `pricePerNight` DOUBLE NOT NULL,
   `createdAt` DATETIME NOT NULL,
-  `trips_id` INT NOT NULL,
+  `trips_id` BIGINT(255) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `idHotels_UNIQUE` (`id` ASC) VISIBLE,
   INDEX `fk_Hotels_Trips1_idx` (`trips_id` ASC) VISIBLE,

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.travel.booking.mybatis.mapper.ReviewMapper">
+
+    <insert id="create" useGeneratedKeys="true" keyProperty="id">
+
+        INSERT INTO reviews (
+        user_id,
+        trip_id,
+        rating,
+        comment,
+        recommended,
+        reviewDate,
+        createdAt
+        )
+        VALUES (
+        #{user.id},
+        #{trip.id},
+        #{rating},
+        #{comment},
+        #{recommended},
+        #{reviewDate},
+        #{createdAt}
+        )
+
+    </insert>
+
+    <select id="findById"
+            resultType="com.travel.booking.model.Review">
+
+        SELECT *
+        FROM reviews
+        WHERE id = #{id}
+
+    </select>
+
+    <select id="findAll"
+            resultType="com.travel.booking.model.Review">
+
+        SELECT *
+        FROM reviews
+
+    </select>
+
+    <update id="update">
+
+        UPDATE reviews
+
+        SET
+        users_id = #{user.id},
+        trips_id = #{trip.id},
+        rating = #{rating},
+        comment = #{comment},
+        recommended = #{recommended},
+        reviewDate = #{reviewDate}
+
+        WHERE id = #{id}
+
+    </update>
+
+    <delete id="delete">
+
+        DELETE FROM reviews
+        WHERE id = #{id}
+
+    </delete>
+
+</mapper>

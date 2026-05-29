@@ -15,6 +15,7 @@ public class TravelPackage {
     private LocalDate endDate;
     private LocalDateTime createdAt;
     private List<Trip> trips;
+    private TravelBookingSystem travelBookingSystem;
 
     public Long getId() {
         return id;
@@ -66,6 +67,14 @@ public class TravelPackage {
 
     public LocalDate getEndDate() {
         return endDate;
+    }
+
+    public TravelBookingSystem getTravelBookingSystem() {
+        return travelBookingSystem;
+    }
+
+    public void setTravelBookingSystem(TravelBookingSystem travelBookingSystem) {
+        this.travelBookingSystem = travelBookingSystem;
     }
 
     public void setEndDate(LocalDate endDate) {

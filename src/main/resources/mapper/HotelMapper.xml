@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.travel.booking.mybatis.mapper.HotelMapper">
+
+    <insert id="create" useGeneratedKeys="true" keyProperty="id">
+
+        INSERT INTO hotels (
+        name,
+        city,
+        address,
+        starRating,
+        breakfastIncluded,
+        pricePerNight,
+        createdAt,
+        trips_id
+        )
+
+        VALUES (
+        #{name},
+        #{city},
+        #{address},
+        #{starRating},
+        #{breakfastIncluded},
+        #{pricePerNight},
+        #{createdAt},
+        #{trip.id}
+        )
+
+    </insert>
+
+    <select id="findById"
+            resultType="com.travel.booking.model.Hotel">
+
+        SELECT *
+        FROM hotels
+        WHERE id = #{id}
+
+    </select>
+
+    <select id="findAll"
+            resultType="com.travel.booking.model.Hotel">
+
+        SELECT *
+        FROM hotels
+
+    </select>
+
+    <update id="update">
+
+        UPDATE hotels
+        SET
+        name = #{name},
+        city = #{city},
+        address = #{address},
+        starRating = #{starRating},
+        breakfastIncluded = #{breakfastIncluded},
+        pricePerNight = #{pricePerNight},
+        trip_id = #{trip.id}
+        WHERE id = #{id}
+
+    </update>
+
+    <delete id="delete">
+
+        DELETE FROM hotels
+        WHERE id = #{id}
+
+    </delete>
+
+</mapper>

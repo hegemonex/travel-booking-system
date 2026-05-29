@@ -11,13 +11,15 @@ public class Trip {
     private Flight flight;
     private Transport transport;
     private Package Package;
+    private TravelPackage travelPackage;
+    private TravelBookingSystem travelBookingSystem;
     private String title;
     private String description;
     private double price;
-    private boolean availabe;
+    private boolean available;
     private LocalDate departureDate;
     private LocalDate returnDate;
-    private LocalDateTime createdAt;
+    private LocalDate createdAt;
     private List<Destination> destinations;
     private List<Review> reviews;
 
@@ -85,12 +87,20 @@ public class Trip {
         this.price = price;
     }
 
+    public TravelBookingSystem getTravelBookingSystem() {
+        return travelBookingSystem;
+    }
+
+    public void setTravelBookingSystem(TravelBookingSystem travelBookingSystem) {
+        this.travelBookingSystem = travelBookingSystem;
+    }
+
     public boolean isAvailabe() {
-        return availabe;
+        return available;
     }
 
     public void setAvailabe(boolean availabe) {
-        this.availabe = availabe;
+        this.available = availabe;
     }
 
     public LocalDate getDepartureDate() {
@@ -109,11 +119,19 @@ public class Trip {
         this.returnDate = returnDate;
     }
 
-    public LocalDateTime getCreatedAt() {
+    public TravelPackage getTravelPackage() {
+        return travelPackage;
+    }
+
+    public void setTravelPackage(TravelPackage travelPackage) {
+        this.travelPackage = travelPackage;
+    }
+
+    public LocalDate getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
+    public void setCreatedAt(LocalDate createdAt) {
         this.createdAt = createdAt;
     }
 

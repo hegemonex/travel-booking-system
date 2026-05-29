@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.travel.booking.mybatis.mapper.TransportMapper">
+
+    <insert id="create" useGeneratedKeys="true" keyProperty="id">
+
+        INSERT INTO transports (
+        type,
+        capacity,
+        available,
+        transportPrice,
+        createdAt
+        )
+
+        VALUES (
+        #{type},
+        #{capacity},
+        #{available},
+        #{transportPrice},
+        #{createdAt}
+        )
+
+    </insert>
+
+    <select id="findById"
+            resultType="com.travel.booking.model.Transport">
+
+        SELECT *
+        FROM transports
+        WHERE id = #{id}
+
+    </select>
+
+    <select id="findAll"
+            resultType="com.travel.booking.model.Transport">
+
+        SELECT *
+        FROM transports
+
+    </select>
+
+    <update id="update">
+
+        UPDATE transports
+
+        SET
+        type = #{type},
+        capacity = #{capacity},
+        available = #{available},
+        transportPrice = #{transportPrice}
+
+        WHERE id = #{id}
+
+    </update>
+
+    <delete id="delete">
+
+        DELETE FROM transports
+        WHERE id = #{id}
+
+    </delete>
+
+</mapper>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.travel.booking.mybatis.mapper.TravelPackageMapper">
+
+    <insert id="create" useGeneratedKeys="true" keyProperty="id">
+
+        INSERT INTO travel_packages (
+        name,
+        description,
+        packagePrice,
+        active,
+        startDate,
+        endDate,
+        createdAt,
+        travel_booking_system_id
+        )
+
+        VALUES (
+        #{name},
+        #{description},
+        #{packagePrice},
+        #{active},
+        #{startDate},
+        #{endDate},
+        #{createdAt},
+        #{travelBookingSystem.id}
+        )
+
+    </insert>
+
+    <select id="findById"
+            resultType="com.travel.booking.model.TravelPackage">
+
+        SELECT *
+        FROM travel_packages
+        WHERE id = #{id}
+
+    </select>
+
+    <select id="findAll"
+            resultType="com.travel.booking.model.TravelPackage">
+
+        SELECT *
+        FROM travel_packages
+
+    </select>
+
+    <update id="update">
+
+        UPDATE travel_packages
+        SET
+        name = #{name},
+        description = #{description},
+        packagePrice = #{packagePrice},
+        active = #{active},
+        startDate = #{startDate},
+        endDate = #{endDate}
+
+        WHERE id = #{id}
+
+    </update>
+
+    <delete id="delete">
+
+        DELETE FROM travel_packages
+        WHERE id = #{id}
+
+    </delete>
+
+</mapper>

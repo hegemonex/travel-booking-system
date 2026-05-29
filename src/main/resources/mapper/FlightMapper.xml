@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.travel.booking.mybatis.mapper.FlightMapper">
+
+    <insert id="create" useGeneratedKeys="true" keyProperty="id">
+
+        INSERT INTO flights (
+        airline,
+        departureAirport,
+        arrivalAirport,
+        departureDate,
+        arrivalDate,
+        directFlight,
+        ticketPrice,
+        createdAt
+        )
+
+        VALUES (
+        #{airline},
+        #{departureAirport},
+        #{arrivalAirport},
+        #{departureDate},
+        #{arrivalDate},
+        #{directFlight},
+        #{ticketPrice},
+        #{createdAt}
+        )
+
+    </insert>
+
+    <select id="findById"
+            resultType="com.travel.booking.model.Flight">
+
+        SELECT *
+        FROM flights
+        WHERE id = #{id}
+
+    </select>
+
+    <select id="findAll"
+            resultType="com.travel.booking.model.Flight">
+
+        SELECT *
+        FROM flights
+
+    </select>
+
+    <update id="update">
+
+        UPDATE flights
+
+        SET
+        airline = #{airline},
+        departureAirport = #{departureAirport},
+        arrivalAirport = #{arrivalAirport},
+        departureDate = #{departureDate},
+        arrivalDate = #{arrivalDate},
+        directFlight = #{directFlight},
+        ticketPrice = #{ticketPrice}
+
+        WHERE id = #{id}
+
+    </update>
+
+    <delete id="delete">
+
+        DELETE FROM flights
+        WHERE id = #{id}
+
+    </delete>
+
+</mapper>

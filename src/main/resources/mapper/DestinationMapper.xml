@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.travel.booking.mybatis.mapper.DestinationMapper">
+
+    <insert id="create" useGeneratedKeys="true" keyProperty="id">
+
+        INSERT INTO destinations (
+            country,
+            city,
+            description,
+            visaRequired,
+            createdAt
+        )
+
+        VALUES (
+            #{country},
+            #{city},
+            #{description},
+            #{visaRequired},
+            #{createdAt}
+        )
+
+    </insert>
+
+    <select id="findById"
+            resultType="com.travel.booking.model.Destination">
+
+        SELECT *
+        FROM destinations
+        WHERE id = #{id}
+
+    </select>
+
+    <select id="findAll"
+            resultType="com.travel.booking.model.Destination">
+
+        SELECT *
+        FROM destinations
+
+    </select>
+
+    <update id="update">
+
+        UPDATE destinations
+
+        SET
+            country = #{country},
+            city = #{city},
+            description = #{description},
+            visaRequired = #{visaRequired}
+
+        WHERE id = #{id}
+
+    </update>
+
+    <delete id="delete">
+
+        DELETE FROM destinations
+        WHERE id = #{id}
+
+    </delete>
+
+</mapper>
