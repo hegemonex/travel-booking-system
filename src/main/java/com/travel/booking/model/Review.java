@@ -14,67 +14,78 @@ public class Review {
     private LocalDate reviewDate;
     private LocalDateTime createdAt;
 
-    public Long getId() {
-        return id;
-    }
+    public Review() {}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public User getUser() {
-        return user;
-    }
+    public User getUser() { return user; }
+    public void setUser(User user) { this.user = user; }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
+    public Trip getTrip() { return trip; }
+    public void setTrip(Trip trip) { this.trip = trip; }
 
-    public Trip getTrip() {
-        return trip;
-    }
+    public int getRating() { return rating; }
+    public void setRating(int rating) { this.rating = rating; }
 
-    public void setTrip(Trip trip) {
-        this.trip = trip;
-    }
+    public String getComment() { return comment; }
+    public void setComment(String comment) { this.comment = comment; }
 
-    public int getRating() {
-        return rating;
-    }
+    public boolean isRecommended() { return recommended; }
+    public void setRecommended(boolean recommended) { this.recommended = recommended; }
 
-    public void setRating(int rating) {
-        this.rating = rating;
-    }
+    public LocalDate getReviewDate() { return reviewDate; }
+    public void setReviewDate(LocalDate reviewDate) { this.reviewDate = reviewDate; }
 
-    public String getComment() {
-        return comment;
-    }
+    public LocalDateTime getCreatedAt() { return createdAt; }
+    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
 
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
+    public static class Builder {
 
-    public boolean isRecommended() {
-        return recommended;
-    }
+        private final Review review = new Review();
 
-    public void setRecommended(boolean recommended) {
-        this.recommended = recommended;
-    }
+        public Builder id(Long id) {
+            review.id = id;
+            return this;
+        }
 
-    public LocalDate getReviewDate() {
-        return reviewDate;
-    }
+        public Builder user(User user) {
+            review.user = user;
+            return this;
+        }
 
-    public void setReviewDate(LocalDate reviewDate) {
-        this.reviewDate = reviewDate;
-    }
+        public Builder trip(Trip trip) {
+            review.trip = trip;
+            return this;
+        }
 
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
+        public Builder rating(int rating) {
+            review.rating = rating;
+            return this;
+        }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
+        public Builder comment(String comment) {
+            review.comment = comment;
+            return this;
+        }
+
+        public Builder recommended(boolean recommended) {
+            review.recommended = recommended;
+            return this;
+        }
+
+        public Builder reviewDate(LocalDate reviewDate) {
+            review.reviewDate = reviewDate;
+            return this;
+        }
+
+        public Builder createdAt(LocalDateTime createdAt) {
+            review.createdAt = createdAt;
+            return this;
+        }
+
+        public Review build() {
+            return review;
+        }
     }
 }

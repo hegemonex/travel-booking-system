@@ -15,75 +15,86 @@ public class Flight {
     private double ticketPrice;
     private LocalDateTime createdAt;
 
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
+    public Flight() {}
 
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public double getTicketPrice() {
-        return ticketPrice;
-    }
+    public String getAirline() { return airline; }
+    public void setAirline(String airline) { this.airline = airline; }
 
-    public void setTicketPrice(double ticketPrice) {
-        this.ticketPrice = ticketPrice;
-    }
+    public String getDepartureAirport() { return departureAirport; }
+    public void setDepartureAirport(String departureAirport) { this.departureAirport = departureAirport; }
 
-    public boolean isDirectFlight() {
-        return directFlight;
-    }
+    public String getArrivalAirport() { return arrivalAirport; }
+    public void setArrivalAirport(String arrivalAirport) { this.arrivalAirport = arrivalAirport; }
 
-    public void setDirectFlight(boolean directFlight) {
-        this.directFlight = directFlight;
-    }
+    public LocalDate getDepartureDate() { return departureDate; }
+    public void setDepartureDate(LocalDate departureDate) { this.departureDate = departureDate; }
 
-    public LocalDate getArrivalDate() {
-        return arrivalDate;
-    }
+    public LocalDate getArrivalDate() { return arrivalDate; }
+    public void setArrivalDate(LocalDate arrivalDate) { this.arrivalDate = arrivalDate; }
 
-    public void setArrivalDate(LocalDate arrivalDate) {
-        this.arrivalDate = arrivalDate;
-    }
+    public boolean isDirectFlight() { return directFlight; }
+    public void setDirectFlight(boolean directFlight) { this.directFlight = directFlight; }
 
-    public LocalDate getDepartureDate() {
-        return departureDate;
-    }
+    public double getTicketPrice() { return ticketPrice; }
+    public void setTicketPrice(double ticketPrice) { this.ticketPrice = ticketPrice; }
 
-    public void setDepartureDate(LocalDate departureDate) {
-        this.departureDate = departureDate;
-    }
+    public LocalDateTime getCreatedAt() { return createdAt; }
+    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
 
-    public String getArrivalAirport() {
-        return arrivalAirport;
-    }
+    public static class Builder {
 
-    public void setArrivalAirport(String arrivalAirport) {
-        this.arrivalAirport = arrivalAirport;
-    }
+        private final Flight flight = new Flight();
 
-    public String getDepartureAirport() {
-        return departureAirport;
-    }
+        public Builder id(Long id) {
+            flight.id = id;
+            return this;
+        }
 
-    public void setDepartureAirport(String departureAirport) {
-        this.departureAirport = departureAirport;
-    }
+        public Builder airline(String airline) {
+            flight.airline = airline;
+            return this;
+        }
 
-    public String getAirline() {
-        return airline;
-    }
+        public Builder departureAirport(String departureAirport) {
+            flight.departureAirport = departureAirport;
+            return this;
+        }
 
-    public void setAirline(String airline) {
-        this.airline = airline;
-    }
+        public Builder arrivalAirport(String arrivalAirport) {
+            flight.arrivalAirport = arrivalAirport;
+            return this;
+        }
 
-    public Long getId() {
-        return id;
-    }
+        public Builder departureDate(LocalDate departureDate) {
+            flight.departureDate = departureDate;
+            return this;
+        }
 
-    public void setId(Long id) {
-        this.id = id;
+        public Builder arrivalDate(LocalDate arrivalDate) {
+            flight.arrivalDate = arrivalDate;
+            return this;
+        }
+
+        public Builder directFlight(boolean directFlight) {
+            flight.directFlight = directFlight;
+            return this;
+        }
+
+        public Builder ticketPrice(double ticketPrice) {
+            flight.ticketPrice = ticketPrice;
+            return this;
+        }
+
+        public Builder createdAt(LocalDateTime createdAt) {
+            flight.createdAt = createdAt;
+            return this;
+        }
+
+        public Flight build() {
+            return flight;
+        }
     }
 }

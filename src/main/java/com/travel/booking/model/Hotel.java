@@ -14,75 +14,86 @@ public class Hotel {
     private double pricePerNight;
     private LocalDateTime createdAt;
 
-    public Long getId() {
-        return id;
-    }
+    public Hotel() {}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public String getName() {
-        return name;
-    }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    public String getCity() { return city; }
+    public void setCity(String city) { this.city = city; }
 
-    public String getCity() {
-        return city;
-    }
+    public String getAddress() { return address; }
+    public void setAddress(String address) { this.address = address; }
 
-    public void setCity(String city) {
-        this.city = city;
-    }
+    public Trip getTrip() { return trip; }
+    public void setTrip(Trip trip) { this.trip = trip; }
 
-    public String getAddress() {
-        return address;
-    }
+    public int getStarRating() { return starRating; }
+    public void setStarRating(int starRating) { this.starRating = starRating; }
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
+    public boolean isBreakfastIncluded() { return breakfastIncluded; }
+    public void setBreakfastIncluded(boolean breakfastIncluded) { this.breakfastIncluded = breakfastIncluded; }
 
-    public int getStarRating() {
-        return starRating;
-    }
+    public double getPricePerNight() { return pricePerNight; }
+    public void setPricePerNight(double pricePerNight) { this.pricePerNight = pricePerNight; }
 
-    public void setStarRating(int starRating) {
-        this.starRating = starRating;
-    }
+    public LocalDateTime getCreatedAt() { return createdAt; }
+    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
 
-    public Trip getTrip() {
-        return trip;
-    }
+    public static class Builder {
 
-    public void setTrip(Trip trip) {
-        this.trip = trip;
-    }
+        private final Hotel hotel = new Hotel();
 
-    public boolean isBreakfastIncluded() {
-        return breakfastIncluded;
-    }
+        public Builder id(Long id) {
+            hotel.id = id;
+            return this;
+        }
 
-    public void setBreakfastIncluded(boolean breakfastIncluded) {
-        this.breakfastIncluded = breakfastIncluded;
-    }
+        public Builder name(String name) {
+            hotel.name = name;
+            return this;
+        }
 
-    public double getPricePerNight() {
-        return pricePerNight;
-    }
+        public Builder city(String city) {
+            hotel.city = city;
+            return this;
+        }
 
-    public void setPricePerNight(double pricePerNight) {
-        this.pricePerNight = pricePerNight;
-    }
+        public Builder address(String address) {
+            hotel.address = address;
+            return this;
+        }
 
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
+        public Builder trip(Trip trip) {
+            hotel.trip = trip;
+            return this;
+        }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
+        public Builder starRating(int starRating) {
+            hotel.starRating = starRating;
+            return this;
+        }
+
+        public Builder breakfastIncluded(boolean breakfastIncluded) {
+            hotel.breakfastIncluded = breakfastIncluded;
+            return this;
+        }
+
+        public Builder pricePerNight(double pricePerNight) {
+            hotel.pricePerNight = pricePerNight;
+            return this;
+        }
+
+        public Builder createdAt(LocalDateTime createdAt) {
+            hotel.createdAt = createdAt;
+            return this;
+        }
+
+        public Hotel build() {
+            return hotel;
+        }
     }
 }

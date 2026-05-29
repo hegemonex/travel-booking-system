@@ -11,51 +11,63 @@ public class Destination {
     private boolean visaRequired;
     private LocalDateTime createdAt;
 
-    public Long getId() {
-        return id;
-    }
+    public Destination() {}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public String getCountry() {
-        return country;
-    }
+    public String getCountry() { return country; }
+    public void setCountry(String country) { this.country = country; }
 
-    public void setCountry(String country) {
-        this.country = country;
-    }
+    public String getCity() { return city; }
+    public void setCity(String city) { this.city = city; }
 
-    public String getCity() {
-        return city;
-    }
+    public String getDescription() { return description; }
+    public void setDescription(String description) { this.description = description; }
 
-    public void setCity(String city) {
-        this.city = city;
-    }
+    public boolean isVisaRequired() { return visaRequired; }
+    public void setVisaRequired(boolean visaRequired) { this.visaRequired = visaRequired; }
 
-    public String getDescription() {
-        return description;
-    }
+    public LocalDateTime getCreatedAt() { return createdAt; }
+    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
 
-    public boolean isVisaRequired() {
-        return visaRequired;
-    }
+    public static class Builder {
 
-    public void setVisaRequired(boolean visaRequired) {
-        this.visaRequired = visaRequired;
-    }
+        private final Destination destination = new Destination();
 
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
+        public Builder id(Long id) {
+            destination.id = id;
+            return this;
+        }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
+        public Builder country(String country) {
+            destination.country = country;
+            return this;
+        }
+
+        public Builder city(String city) {
+            destination.city = city;
+            return this;
+        }
+
+        public Builder description(String description) {
+            destination.description = description;
+            return this;
+        }
+
+        public Builder visaRequired(boolean visaRequired) {
+            destination.visaRequired = visaRequired;
+            return this;
+        }
+
+        public Builder createdAt(LocalDateTime createdAt) {
+            destination.createdAt = createdAt;
+            return this;
+        }
+
+        public Destination build() {
+            return destination;
+        }
     }
 }

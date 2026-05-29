@@ -1,5 +1,6 @@
+import com.travel.booking.designpatterns.factories.MyBatisServiceFactory;
+import com.travel.booking.designpatterns.factories.interfaces.ServiceFactory;
 import com.travel.booking.model.*;
-import com.travel.booking.service.impl.*;
 import com.travel.booking.service.interfaces.*;
 
 import java.time.LocalDate;
@@ -8,134 +9,139 @@ import java.time.LocalDateTime;
 public class Main {
     public static void main(String[] args) {
 
-        TravelBookingSystemService tbsService = new TravelBookingSystemServiceImpl();
-        TransportService transportService = new TransportServiceImpl();
-        TravelPackageService packageService = new TravelPackageServiceImpl();
-        FlightService flightService = new FlightServiceImpl();
-        UserService userService = new UserServiceImpl();
-        DestinationService destinationService = new DestinationServiceImpl();
-        TripService tripService = new TripServiceImpl();
-        BookingService bookingService = new BookingServiceImpl();
-        ReviewService reviewService = new ReviewServiceImpl();
-        PaymentService paymentService = new PaymentServiceImpl();
+        ServiceFactory factory = new MyBatisServiceFactory();
 
-        TravelBookingSystem tbs = new TravelBookingSystem();
-        tbs.setSystemName("Main System");
-        tbs.setCreatedAt(LocalDateTime.now());
+        TravelBookingSystemService tbsService  = factory.createTravelBookingSystemService();
+        TransportService           transportService = factory.createTransportService();
+        TravelPackageService       packageService   = factory.createTravelPackageService();
+        FlightService              flightService    = factory.createFlightService();
+        UserService                userService      = factory.createUserService();
+        DestinationService         destinationService = factory.createDestinationService();
+        TripService                tripService      = factory.createTripService();
+        BookingService             bookingService   = factory.createBookingService();
+        ReviewService              reviewService    = factory.createReviewService();
+        PaymentService             paymentService   = factory.createPaymentService();
+
+        TravelBookingSystem tbs = new TravelBookingSystem.Builder()
+                .systemName("Main System")
+                .createdAt(LocalDateTime.now())
+                .build();
         tbsService.save(tbs);
-
         System.out.println("TBS ID = " + tbs.getId());
 
-        Transport transport = new Transport();
-        transport.setType("Bus");
-        transport.setCapacity(50);
-        transport.setAvailable(true);
-        transport.setTransportPrice(50);
-        transport.setCreatedAt(LocalDateTime.now());
+        Transport transport = new Transport.Builder()
+                .type("Bus")
+                .capacity(50)
+                .available(true)
+                .transportPrice(50)
+                .createdAt(LocalDateTime.now())
+                .build();
         transportService.save(transport);
 
-        Flight flight = new Flight();
-        flight.setAirline("Georgian Airways");
-        flight.setDepartureAirport("TBS");
-        flight.setArrivalAirport("LHR");
-        flight.setDepartureDate(LocalDate.of(2025, 6, 1));
-        flight.setArrivalDate(LocalDate.of(2025, 6, 1));
-        flight.setDirectFlight(true);
-        flight.setTicketPrice(300);
-        flight.setCreatedAt(LocalDateTime.now());
+        Flight flight = new Flight.Builder()
+                .airline("Georgian Airways")
+                .departureAirport("TBS")
+                .arrivalAirport("LHR")
+                .departureDate(LocalDate.of(2025, 6, 1))
+                .arrivalDate(LocalDate.of(2025, 6, 1))
+                .directFlight(true)
+                .ticketPrice(300)
+                .createdAt(LocalDateTime.now())
+                .build();
         flightService.save(flight);
 
-        TravelPackage pack = new TravelPackage();
-        pack.setName("London Package");
-        pack.setDescription("All inclusive");
-        pack.setPackagePrice(1200);
-        pack.setActive(true);
-        pack.setStartDate(LocalDate.of(2025, 6, 1));
-        pack.setEndDate(LocalDate.of(2025, 6, 6));
-        pack.setCreatedAt(LocalDateTime.now());
-        pack.setTravelBookingSystem(tbs);
+        TravelPackage pack = new TravelPackage.Builder()
+                .name("London Package")
+                .description("All inclusive")
+                .packagePrice(1200)
+                .active(true)
+                .startDate(LocalDate.of(2025, 6, 1))
+                .endDate(LocalDate.of(2025, 6, 6))
+                .createdAt(LocalDateTime.now())
+                .travelBookingSystem(tbs)
+                .build();
         packageService.save(pack);
 
-        User user = new User();
-        user.setFirstName("John");
-        user.setLastName("Doe");
-        user.setEmail("john@gmail.com");
-        user.setPhoneNumber("555-123");
-        user.setBirthDate(LocalDate.of(1990, 1, 1));
-        user.setCreatedAt(LocalDateTime.now());
-        user.setTravelBookingSystem(tbs);
+        User user = new User.Builder()
+                .firstName("John")
+                .lastName("Doe")
+                .email("john@gmail.com")
+                .phoneNumber("555-123")
+                .birthDate(LocalDate.of(1990, 1, 1))
+                .createdAt(LocalDateTime.now())
+                .travelBookingSystem(tbs)
+                .build();
         userService.save(user);
 
-        Destination dest = new Destination();
-        dest.setCountry("UK");
-        dest.setCity("London");
-        dest.setDescription("Capital");
-        dest.setVisaRequired(false);
-        dest.setCreatedAt(LocalDateTime.now());
+        Destination dest = new Destination.Builder()
+                .country("UK")
+                .city("London")
+                .description("Capital")
+                .visaRequired(false)
+                .createdAt(LocalDateTime.now())
+                .build();
         destinationService.save(dest);
 
-        Trip trip = new Trip();
-        trip.setTitle("London Trip");
-        trip.setDescription("5 days");
-        trip.setPrice(999);
-        trip.setAvailabe(true);
-        trip.setDepartureDate(LocalDate.of(2025, 6, 1));
-        trip.setReturnDate(LocalDate.of(2025, 6, 6));
-        trip.setCreatedAt(LocalDate.now());
+        Hotel hotel = new Hotel.Builder()
+                .name("Hilton")
+                .city("London")
+                .address("Central")
+                .starRating(5)
+                .breakfastIncluded(true)
+                .pricePerNight(200)
+                .createdAt(LocalDateTime.now())
+                .build();
 
-        trip.setFlight(flight);
-        trip.setTransport(transport);
-        trip.setTravelPackage(pack);
-        trip.setTravelBookingSystem(tbs);
-        trip.setHotel(buildHotel());
+        Trip trip = new Trip.Builder()
+                .title("London Trip")
+                .description("5 days")
+                .price(999)
+                .available(true)
+                .departureDate(LocalDate.of(2025, 6, 1))
+                .returnDate(LocalDate.of(2025, 6, 6))
+                .createdAt(LocalDate.now())
+                .flight(flight)
+                .transport(transport)
+                .travelPackage(pack)
+                .travelBookingSystem(tbs)
+                .hotel(hotel)
+                .build();
 
         tripService.saveTripWithHotel(trip);
 
-        Review review = new Review();
-        review.setUser(user);
-        review.setTrip(trip);
-        review.setRating(5);
-        review.setComment("Amazing!");
-        review.setRecommended(true);
-        review.setReviewDate(LocalDate.now());
-        review.setCreatedAt(LocalDateTime.now());
-
+        Review review = new Review.Builder()
+                .user(user)
+                .trip(trip)
+                .rating(5)
+                .comment("Amazing!")
+                .recommended(true)
+                .reviewDate(LocalDate.now())
+                .createdAt(LocalDateTime.now())
+                .build();
         reviewService.save(review);
 
-        Payment payment = new Payment();
-        payment.setPaymentMethod("CARD");
-        payment.setAmount(trip.getPrice());
-        payment.setSuccessful(true);
-        payment.setPaymentDate(LocalDate.now());
-        payment.setCreatedAt(LocalDateTime.now());
-
+        Payment payment = new Payment.Builder()
+                .paymentMethod("CARD")
+                .amount(trip.getPrice())
+                .successful(true)
+                .paymentDate(LocalDate.now())
+                .createdAt(LocalDateTime.now())
+                .build();
         paymentService.save(payment);
 
-        Booking booking = new Booking();
-        booking.setUser(user);
-        booking.setTrip(trip);
-        booking.setPayment(payment);
-        booking.setTotalPrice(trip.getPrice());
-        booking.setConfirmed(true);
-        booking.setBookingDate(LocalDate.now());
-        booking.setCreatedAt(LocalDateTime.now());
-
+        Booking booking = new Booking.Builder()
+                .user(user)
+                .trip(trip)
+                .payment(payment)
+                .totalPrice(trip.getPrice())
+                .confirmed(true)
+                .bookingDate(LocalDate.now())
+                .createdAt(LocalDateTime.now())
+                .build();
         bookingService.save(booking);
 
-        System.out.println("Trips: " + tripService.findAll().size());
-        System.out.println("Users: " + userService.findAll().size());
+        System.out.println("Trips: "            + tripService.findAll().size());
+        System.out.println("Users: "            + userService.findAll().size());
         System.out.println("Bookings complete: " + bookingService.findCompleteBookingInfo().size());
-    }
-
-    private static Hotel buildHotel() {
-        Hotel hotel = new Hotel();
-        hotel.setName("Hilton");
-        hotel.setCity("London");
-        hotel.setAddress("Central");
-        hotel.setStarRating(5);
-        hotel.setBreakfastIncluded(true);
-        hotel.setPricePerNight(200);
-        hotel.setCreatedAt(LocalDateTime.now());
-        return hotel;
     }
 }

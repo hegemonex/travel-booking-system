@@ -12,51 +12,62 @@ public class TravelBookingSystem {
     private List<Trip> trips;
     private List<TravelPackage> packages;
 
-    public Long getId() {
-        return id;
-    }
+    public TravelBookingSystem() {}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public String getSystemName() {
-        return systemName;
-    }
+    public String getSystemName() { return systemName; }
+    public void setSystemName(String systemName) { this.systemName = systemName; }
 
-    public void setSystemName(String systemName) {
-        this.systemName = systemName;
-    }
+    public LocalDateTime getCreatedAt() { return createdAt; }
+    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
 
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
+    public List<User> getUsers() { return users; }
+    public void setUsers(List<User> users) { this.users = users; }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
+    public List<Trip> getTrips() { return trips; }
+    public void setTrips(List<Trip> trips) { this.trips = trips; }
 
-    public List<User> getUsers() {
-        return users;
-    }
+    public List<TravelPackage> getPackages() { return packages; }
+    public void setPackages(List<TravelPackage> packages) { this.packages = packages; }
 
-    public void setUsers(List<User> users) {
-        this.users = users;
-    }
+    public static class Builder {
 
-    public List<Trip> getTrips() {
-        return trips;
-    }
+        private final TravelBookingSystem tbs = new TravelBookingSystem();
 
-    public void setTrips(List<Trip> trips) {
-        this.trips = trips;
-    }
+        public Builder id(Long id) {
+            tbs.id = id;
+            return this;
+        }
 
-    public List<TravelPackage> getPackages() {
-        return packages;
-    }
+        public Builder systemName(String systemName) {
+            tbs.systemName = systemName;
+            return this;
+        }
 
-    public void setPackages(List<TravelPackage> packages) {
-        this.packages = packages;
+        public Builder createdAt(LocalDateTime createdAt) {
+            tbs.createdAt = createdAt;
+            return this;
+        }
+
+        public Builder users(List<User> users) {
+            tbs.users = users;
+            return this;
+        }
+
+        public Builder trips(List<Trip> trips) {
+            tbs.trips = trips;
+            return this;
+        }
+
+        public Builder packages(List<TravelPackage> packages) {
+            tbs.packages = packages;
+            return this;
+        }
+
+        public TravelBookingSystem build() {
+            return tbs;
+        }
     }
 }
