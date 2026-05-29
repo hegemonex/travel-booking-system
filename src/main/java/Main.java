@@ -11,16 +11,16 @@ public class Main {
 
         ServiceFactory factory = new MyBatisServiceFactory();
 
-        TravelBookingSystemService tbsService  = factory.createTravelBookingSystemService();
-        TransportService           transportService = factory.createTransportService();
-        TravelPackageService       packageService   = factory.createTravelPackageService();
-        FlightService              flightService    = factory.createFlightService();
-        UserService                userService      = factory.createUserService();
-        DestinationService         destinationService = factory.createDestinationService();
-        TripService                tripService      = factory.createTripService();
-        BookingService             bookingService   = factory.createBookingService();
-        ReviewService              reviewService    = factory.createReviewService();
-        PaymentService             paymentService   = factory.createPaymentService();
+        TravelBookingSystemService tbsService = factory.createTravelBookingSystemService();
+        TransportService transportService = factory.createTransportService();
+        TravelPackageService packageService = factory.createTravelPackageService();
+        FlightService flightService = factory.createFlightService();
+        UserService userService = factory.createUserService();
+        DestinationService destinationService = factory.createDestinationService();
+        TripService tripService = factory.createTripService();
+        BookingService bookingService = factory.createBookingService();
+        ReviewService reviewService = factory.createReviewService();
+        PaymentService paymentService = factory.createPaymentService();
 
         TravelBookingSystem tbs = new TravelBookingSystem.Builder()
                 .systemName("Main System")
@@ -140,8 +140,8 @@ public class Main {
                 .build();
         bookingService.save(booking);
 
-        System.out.println("Trips: "            + tripService.findAll().size());
-        System.out.println("Users: "            + userService.findAll().size());
+        System.out.println("Trips: " + tripService.findAll().size());
+        System.out.println("Users: " + userService.findAll().size());
         System.out.println("Bookings complete: " + bookingService.findCompleteBookingInfo().size());
     }
 }
