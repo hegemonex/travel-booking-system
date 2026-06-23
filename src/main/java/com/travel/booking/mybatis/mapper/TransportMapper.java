@@ -7,7 +7,7 @@ import java.util.List;
 public interface TransportMapper {
     void create(Transport transport);
 
-    Transport findBy(Long id);
+    Transport findById(Long id);
 
     List<Transport> findAll();
 

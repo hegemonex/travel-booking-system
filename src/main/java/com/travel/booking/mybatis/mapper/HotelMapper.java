@@ -7,7 +7,7 @@ import java.util.List;
 public interface HotelMapper {
     void create(Hotel hotel);
 
-    Hotel findBy(Long id);
+    Hotel findById(Long id);
 
     List<Hotel> findAll();
 

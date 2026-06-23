@@ -23,7 +23,7 @@ public class FlightBatisDao implements FlightDao {
         try (SqlSession session =
                      MyBatisUtil.getSqlSessionFactory().openSession()) {
             FlightMapper mapper = session.getMapper(FlightMapper.class);
-            return mapper.findBy(id);
+            return mapper.findById(id);
         }
     }
 

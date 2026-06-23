@@ -23,7 +23,7 @@ public class TransportBatisDao implements TransportDao {
         try(SqlSession session =
                     MyBatisUtil.getSqlSessionFactory().openSession()) {
             TransportMapper mapper = session.getMapper(TransportMapper.class);
-            return mapper.findBy(id);
+            return mapper.findById(id);
         }
     }
 

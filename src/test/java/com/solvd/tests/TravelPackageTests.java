@@ -1,57 +1,99 @@
 package com.solvd.tests;
 
+import com.travel.booking.model.TravelBookingSystem;
 import com.travel.booking.model.TravelPackage;
+import com.travel.booking.service.impl.TravelBookingSystemServiceImpl;
+import com.travel.booking.service.impl.TravelPackageServiceImpl;
+import com.travel.booking.service.interfaces.TravelBookingSystemService;
+import com.travel.booking.service.interfaces.TravelPackageService;
 import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
 
-public class TravelPackageTests extends BaseTests {
+public class TravelPackageTests {
 
-    @Test
-    public void shouldSetName() {
-        TravelPackage pack = new TravelPackage();
+    private TravelPackageService packageService;
+    private TravelBookingSystemService tbsService;
 
-        pack.setName("Europe Tour");
-
-        Assert.assertEquals(pack.getName(), "Europe Tour");
+    @BeforeClass
+    public void setup() {
+        packageService = new TravelPackageServiceImpl();
+        tbsService = new TravelBookingSystemServiceImpl();
     }
 
-    @Test
-    public void shouldSetDescription() {
+    private TravelPackage createPackage() {
+
+        TravelBookingSystem tbs = new TravelBookingSystem();
+        tbs.setSystemName("Test System");
+        tbs.setCreatedAt(LocalDateTime.now());
+        tbsService.save(tbs);
+
         TravelPackage pack = new TravelPackage();
-
-        pack.setDescription("All Inclusive");
-
-        Assert.assertEquals(pack.getDescription(), "All Inclusive");
-    }
-
-    @Test
-    public void shouldSetPrice() {
-        TravelPackage pack = new TravelPackage();
-
-        pack.setPackagePrice(1500);
-
-        Assert.assertEquals(pack.getPackagePrice(), 1500.0);
-    }
-
-    @Test
-    public void shouldBeActive() {
-        TravelPackage pack = new TravelPackage();
-
+        pack.setName("London Package");
+        pack.setDescription("All inclusive");
+        pack.setPackagePrice(1200);
         pack.setActive(true);
+        pack.setStartDate(LocalDate.now());
+        pack.setEndDate(LocalDate.now().plusDays(5));
+        pack.setCreatedAt(LocalDateTime.now());
+        pack.setTravelBookingSystem(tbs);
 
-        Assert.assertTrue(pack.isActive());
+        packageService.save(pack);
+
+        return pack;
     }
 
     @Test
-    public void shouldSetStartDate() {
-        TravelPackage pack = new TravelPackage();
+    public void saveTravelPackageTest() {
+        TravelPackage pack = createPackage();
 
-        LocalDate date = LocalDate.of(2025, 6, 1);
+        Assert.assertNotNull(pack.getId(),
+                "Travel package should be saved.");
+    }
 
-        pack.setStartDate(date);
+    @Test
+    public void findTravelPackageByIdTest() {
+        TravelPackage pack = createPackage();
 
-        Assert.assertEquals(pack.getStartDate(), date);
+        Assert.assertNotNull(
+                packageService.findById(pack.getId()),
+                "Travel package should be found.");
+    }
+
+    @Test
+    public void findAllTravelPackagesTest() {
+        List<TravelPackage> packages = packageService.findAll();
+
+        Assert.assertNotNull(packages,
+                "Package list should not be null.");
+    }
+
+    @Test
+    public void updateTravelPackageTest() {
+        TravelPackage pack = createPackage();
+
+        pack.setName("Updated Package");
+        packageService.update(pack);
+
+        TravelPackage updated =
+                packageService.findById(pack.getId());
+
+        Assert.assertEquals(updated.getName(),
+                "Updated Package",
+                "Package name should be updated.");
+    }
+
+    @Test
+    public void deleteTravelPackageTest() {
+        TravelPackage pack = createPackage();
+
+        packageService.delete(pack.getId());
+
+        Assert.assertNull(packageService.findById(pack.getId()),
+                "Deleted package should not exist.");
     }
 }

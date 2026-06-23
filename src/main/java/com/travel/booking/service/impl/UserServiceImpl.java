@@ -34,7 +34,7 @@ public class UserServiceImpl implements UserService {
             UserMapper mapper =
                     session.getMapper(UserMapper.class);
 
-            return mapper.findBy(id);
+            return mapper.findById(id);
         }
     }
 

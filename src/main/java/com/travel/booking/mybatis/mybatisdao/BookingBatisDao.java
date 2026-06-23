@@ -26,7 +26,7 @@ public class BookingBatisDao implements BookingDao {
                      MyBatisUtil.getSqlSessionFactory().openSession()) {
 
             BookingMapper mapper = session.getMapper(BookingMapper.class);
-            return mapper.findBy(id);
+            return mapper.findById(id);
         }
     }
 

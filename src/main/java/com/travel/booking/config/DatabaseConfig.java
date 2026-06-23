@@ -13,7 +13,7 @@ public class DatabaseConfig {
         try (InputStream input =
                      DatabaseConfig.class
                              .getClassLoader()
-                             .getResourceAsStream("sql/config.properties")) {
+                             .getResourceAsStream("config.properties")) {
 
             properties.load(input);
 

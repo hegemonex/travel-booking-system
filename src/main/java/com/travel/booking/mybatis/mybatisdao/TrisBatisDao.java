@@ -24,7 +24,7 @@ public class TrisBatisDao implements TripDao {
         try(SqlSession session =
                     MyBatisUtil.getSqlSessionFactory().openSession()) {
             TripMapper mapper = session.getMapper(TripMapper.class);
-            return mapper.findBy(id);
+            return mapper.findById(id);
         }
     }
 

@@ -7,7 +7,7 @@ import java.util.List;
 public interface DestinationMapper {
     void create(Destination destination);
 
-    Destination findBy(Long id);
+    Destination findById(Long id);
 
     List<Destination> findAll();
 

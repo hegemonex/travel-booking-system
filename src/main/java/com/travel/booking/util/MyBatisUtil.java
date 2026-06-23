@@ -13,7 +13,7 @@ public class MyBatisUtil {
     static {
         try {
             Reader reader =
-                    Resources.getResourceAsReader("sql/mybatis-config.xml");
+                    Resources.getResourceAsReader("mybatis-config.xml");
 
             sqlSessionFactory =
                     new SqlSessionFactoryBuilder().build(reader);

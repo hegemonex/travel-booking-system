@@ -23,7 +23,7 @@ public class TravelBookingSystemBatisDao implements TravelBookingSystemDao {
         try(SqlSession session =
                     MyBatisUtil.getSqlSessionFactory().openSession()) {
             TravelBookingSystemMapper mapper = session.getMapper(TravelBookingSystemMapper.class);
-            return mapper.findBy(id);
+            return mapper.findById(id);
         }
     }
 

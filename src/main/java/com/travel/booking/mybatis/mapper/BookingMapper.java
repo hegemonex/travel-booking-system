@@ -8,7 +8,7 @@ public interface BookingMapper {
 
         void create(Booking booking);
 
-        Booking findBy(Long id);
+        Booking findById(Long id);
 
         List<Booking> findAll();
 

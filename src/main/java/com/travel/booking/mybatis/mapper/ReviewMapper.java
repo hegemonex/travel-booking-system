@@ -7,7 +7,7 @@ import java.util.List;
 public interface ReviewMapper {
     void create(Review review);
 
-    Review findBy(Long id);
+    Review findById(Long id);
 
     List<Review> findAll();
 

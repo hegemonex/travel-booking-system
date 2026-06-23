@@ -28,7 +28,7 @@
         )
     </insert>
 
-    <select id="findBy" resultType="com.travel.booking.model.User">
+    <select id="findById" resultType="com.travel.booking.model.User">
         SELECT * FROM users
         WHERE id = #{id}
     </select>

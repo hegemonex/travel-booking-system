@@ -32,7 +32,7 @@ public class FlightServiceImpl implements FlightService {
             FlightMapper mapper =
                     session.getMapper(FlightMapper.class);
 
-            return mapper.findBy(id);
+            return mapper.findById(id);
         }
     }
 

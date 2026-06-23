@@ -32,7 +32,7 @@ public class TransportServiceImpl implements TransportService {
             TransportMapper mapper =
                     session.getMapper(TransportMapper.class);
 
-            return mapper.findBy(id);
+            return mapper.findById(id);
         }
     }
 

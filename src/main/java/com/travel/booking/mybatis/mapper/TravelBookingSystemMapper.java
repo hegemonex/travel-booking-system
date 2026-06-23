@@ -7,7 +7,7 @@ import java.util.List;
 public interface TravelBookingSystemMapper {
     void create(TravelBookingSystem travelBookingSystem);
 
-    TravelBookingSystem findBy(Long id);
+    TravelBookingSystem findById(Long id);
 
     List<TravelBookingSystem> findAll();
 

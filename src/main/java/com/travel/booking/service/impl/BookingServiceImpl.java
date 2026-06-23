@@ -26,7 +26,7 @@ public class BookingServiceImpl implements BookingService {
         try (SqlSession session = MyBatisUtil.getSqlSessionFactory().openSession()) {
 
             BookingMapper mapper = session.getMapper(BookingMapper.class);
-            return mapper.findBy(id);
+            return mapper.findById(id);
         }
     }
 

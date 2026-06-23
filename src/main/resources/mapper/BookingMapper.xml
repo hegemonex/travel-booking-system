@@ -39,7 +39,10 @@
 
     <update id="update">
         UPDATE bookings
-        SET user_id = #{user.id},
+        SET totalPrice = #{totalPrice},
+        confirmed = #{confirmed},
+        bookingDate = #{bookingDate},
+        user_id = #{user.id},
         trip_id = #{trip.id},
         payments_id = #{payment.id}
         WHERE id = #{id}

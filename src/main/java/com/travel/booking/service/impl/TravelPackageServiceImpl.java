@@ -32,7 +32,7 @@ public class TravelPackageServiceImpl implements TravelPackageService {
             TravelPackageMapper mapper =
                     session.getMapper(TravelPackageMapper.class);
 
-            return mapper.findBy(id);
+            return mapper.findById(id);
         }
     }
 

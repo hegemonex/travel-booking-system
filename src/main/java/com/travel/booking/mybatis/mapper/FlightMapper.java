@@ -7,7 +7,7 @@ import java.util.List;
 public interface FlightMapper {
     void create(Flight flight);
 
-    Flight findBy(Long id);
+    Flight findById(Long id);
 
     List<Flight> findAll();
 

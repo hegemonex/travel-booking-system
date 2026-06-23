@@ -23,7 +23,7 @@ public class DestinationBatisDao implements DestinationDao {
         try (SqlSession session =
                      MyBatisUtil.getSqlSessionFactory().openSession()) {
             DestinationMapper mapper = session.getMapper(DestinationMapper.class);
-            return mapper.findBy(id);
+            return mapper.findById(id);
         }
     }
 

@@ -7,7 +7,7 @@ import java.util.List;
 public interface TravelPackageMapper {
     void create(TravelPackage travelPackage);
 
-    TravelPackage findBy(Long id);
+    TravelPackage findById(Long id);
 
     List<TravelPackage> findAll();
 

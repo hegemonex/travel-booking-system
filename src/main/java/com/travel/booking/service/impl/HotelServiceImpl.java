@@ -28,7 +28,7 @@ public class HotelServiceImpl implements HotelService {
                      MyBatisUtil.getSqlSessionFactory().openSession()) {
 
             HotelMapper mapper = session.getMapper(HotelMapper.class);
-            return mapper.findBy(id);
+            return mapper.findById(id);
         }
     }
 

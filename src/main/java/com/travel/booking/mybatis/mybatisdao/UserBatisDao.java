@@ -24,7 +24,7 @@ public class UserBatisDao implements UserDao {
                      MyBatisUtil.getSqlSessionFactory().openSession()) {
 
             UserMapper mapper = session.getMapper(UserMapper.class);
-            return mapper.findBy(id);
+            return mapper.findById(id);
         }
     }
 

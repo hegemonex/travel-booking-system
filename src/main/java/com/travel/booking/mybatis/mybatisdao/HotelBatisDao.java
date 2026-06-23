@@ -23,7 +23,7 @@ public class HotelBatisDao implements HotelDao {
         try (SqlSession session =
                      MyBatisUtil.getSqlSessionFactory().openSession()) {
             HotelMapper mapper = session.getMapper(HotelMapper.class);
-            return mapper.findBy(id);
+            return mapper.findById(id);
         }
     }
 

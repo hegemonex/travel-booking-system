@@ -32,7 +32,7 @@ public class DestinationServiceImpl implements DestinationService {
             DestinationMapper mapper =
                     session.getMapper(DestinationMapper.class);
 
-            return mapper.findBy(id);
+            return mapper.findById(id);
         }
     }
 

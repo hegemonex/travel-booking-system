@@ -23,7 +23,7 @@ public class ReviewBatisDao implements ReviewDao {
         try(SqlSession session =
                 MyBatisUtil.getSqlSessionFactory().openSession()) {
             ReviewMapper mapper = session.getMapper(ReviewMapper.class);
-            return mapper.findBy(id);
+            return mapper.findById(id);
         }
     }
 

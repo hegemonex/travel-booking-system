@@ -7,7 +7,7 @@ import java.util.List;
 public interface TripMapper {
     void create(Trip trip);
 
-    Trip findBy(Long id);
+    Trip findById(Long id);
 
     List<Trip> findAll();
 

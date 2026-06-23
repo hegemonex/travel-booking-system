@@ -8,7 +8,7 @@ public interface UserMapper {
 
     void create(User user);
 
-    User findBy(Long id);
+    User findById(Long id);
 
     List<User> findAll();
 

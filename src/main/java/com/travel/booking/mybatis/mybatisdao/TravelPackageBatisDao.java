@@ -23,7 +23,7 @@ public class TravelPackageBatisDao implements TravelPackageDao {
         try(SqlSession session =
                 MyBatisUtil.getSqlSessionFactory().openSession()) {
             TravelPackageMapper mapper = session.getMapper(TravelPackageMapper.class);
-            return mapper.findBy(id);
+            return mapper.findById(id);
         }
     }
 

@@ -32,7 +32,7 @@ public class ReviewServiceImpl implements ReviewService {
             ReviewMapper mapper =
                     session.getMapper(ReviewMapper.class);
 
-            return mapper.findBy(id);
+            return mapper.findById(id);
         }
     }
 

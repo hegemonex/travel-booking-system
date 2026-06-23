@@ -32,7 +32,7 @@ public class TravelBookingSystemServiceImpl implements TravelBookingSystemServic
             TravelBookingSystemMapper mapper =
                     session.getMapper(TravelBookingSystemMapper.class);
 
-            return mapper.findBy(id);
+            return mapper.findById(id);
         }
     }
 
